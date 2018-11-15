@@ -14,6 +14,7 @@
 		4B7D30F3218BA46600E94803 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B7D30F1218BA46600E94803 /* LaunchScreen.storyboard */; };
 		4B7D30FE218BA46600E94803 /* DIYgm_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7D30FD218BA46600E94803 /* DIYgm_iOSTests.swift */; };
 		4B7D3109218BA46600E94803 /* DIYgm_iOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7D3108218BA46600E94803 /* DIYgm_iOSUITests.swift */; };
+		4BF6FAA42194E1AE00906E56 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4BF6FAA32194E1AE00906E56 /* Keys.plist */; };
 		73C5EA47943CC3F2A3AFDE2D /* Pods_DIYgm_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B62926EB4CBBDC2B3377A271 /* Pods_DIYgm_iOS.framework */; };
 		982AD78C41603302EC9FB4EE /* Pods_DIYgm_iOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE42DCD78C49525F7269682 /* Pods_DIYgm_iOSUITests.framework */; };
 		B1FD129031AF3937B7A20C4D /* Pods_DIYgm_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02E5118FA08CA181EB7C492D /* Pods_DIYgm_iOSTests.framework */; };
@@ -52,6 +53,7 @@
 		4B7D3104218BA46600E94803 /* DIYgm-iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DIYgm-iOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B7D3108218BA46600E94803 /* DIYgm_iOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIYgm_iOSUITests.swift; sourceTree = "<group>"; };
 		4B7D310A218BA46600E94803 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4BF6FAA32194E1AE00906E56 /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		9B4360A771871E787CBCD42B /* Pods-DIYgm-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DIYgm-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-DIYgm-iOS/Pods-DIYgm-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		AF42B64F1C6B01442DB97AB0 /* Pods-DIYgm-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DIYgm-iOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DIYgm-iOSTests/Pods-DIYgm-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B62926EB4CBBDC2B3377A271 /* Pods_DIYgm_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DIYgm_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -133,6 +135,7 @@
 				4B7D30EF218BA46600E94803 /* Assets.xcassets */,
 				4B7D30F1218BA46600E94803 /* LaunchScreen.storyboard */,
 				4B7D30F4218BA46600E94803 /* Info.plist */,
+				4BF6FAA32194E1AE00906E56 /* Keys.plist */,
 			);
 			path = "DIYgm-iOS";
 			sourceTree = "<group>";
@@ -273,6 +276,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BF6FAA42194E1AE00906E56 /* Keys.plist in Resources */,
 				4B7D30F3218BA46600E94803 /* LaunchScreen.storyboard in Resources */,
 				4B7D30F0218BA46600E94803 /* Assets.xcassets in Resources */,
 				4B7D30EE218BA45E00E94803 /* Main.storyboard in Resources */,
