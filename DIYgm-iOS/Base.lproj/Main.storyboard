@@ -73,10 +73,10 @@
             </objects>
             <point key="canvasLocation" x="836" y="-205"/>
         </scene>
-        <!--Map View Controller-->
+        <!--Manual View Controller-->
         <scene sceneID="dri-Pq-Zws">
             <objects>
-                <viewController id="jfk-8o-gUi" customClass="MapViewController" customModule="DIYgm_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="jfk-8o-gUi" customClass="ManualViewController" customModule="DIYgm_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4jU-TC-7q8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
