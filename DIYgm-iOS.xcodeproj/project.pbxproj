@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4B56999A219E1EF00045DF83 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4B569999219E1EF00045DF83 /* Keys.plist */; };
+		4B6B32E721A394720071E4D7 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6B32E621A394720071E4D7 /* MapViewController.swift */; };
 		4B7D30E9218BA45E00E94803 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7D30E8218BA45E00E94803 /* AppDelegate.swift */; };
 		4B7D30EB218BA45E00E94803 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7D30EA218BA45E00E94803 /* ViewController.swift */; };
 		4B7D30EE218BA45E00E94803 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B7D30EC218BA45E00E94803 /* Main.storyboard */; };
@@ -41,6 +42,7 @@
 		02E5118FA08CA181EB7C492D /* Pods_DIYgm_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DIYgm_iOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		126D7C1C67B831622367B929 /* Pods-DIYgm-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DIYgm-iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DIYgm-iOS/Pods-DIYgm-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		4B569999219E1EF00045DF83 /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
+		4B6B32E621A394720071E4D7 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		4B7D30E5218BA45E00E94803 /* DIYgm-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DIYgm-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B7D30E8218BA45E00E94803 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4B7D30EA218BA45E00E94803 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				4B7D30E8218BA45E00E94803 /* AppDelegate.swift */,
+				4B6B32E621A394720071E4D7 /* MapViewController.swift */,
 				4B7D30EA218BA45E00E94803 /* ViewController.swift */,
 				4B7D30EC218BA45E00E94803 /* Main.storyboard */,
 				4B7D30EF218BA46600E94803 /* Assets.xcassets */,
@@ -398,6 +401,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B7D30EB218BA45E00E94803 /* ViewController.swift in Sources */,
+				4B6B32E721A394720071E4D7 /* MapViewController.swift in Sources */,
 				4B7D30E9218BA45E00E94803 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

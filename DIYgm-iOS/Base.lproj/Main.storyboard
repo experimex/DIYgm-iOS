@@ -73,10 +73,10 @@
             </objects>
             <point key="canvasLocation" x="836" y="-205"/>
         </scene>
-        <!--View Controller-->
+        <!--Map View Controller-->
         <scene sceneID="dri-Pq-Zws">
             <objects>
-                <viewController id="jfk-8o-gUi" sceneMemberID="viewController">
+                <viewController id="jfk-8o-gUi" customClass="MapViewController" customModule="DIYgm_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4jU-TC-7q8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -106,6 +106,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="Lgt-Cp-zzr"/>
-        <segue reference="Oav-Up-8Jn"/>
+        <segue reference="11q-m0-hCM"/>
     </inferredMetricsTieBreakers>
 </document>
