@@ -14,6 +14,8 @@ class ManualViewController: UIViewController {
     
     var mapView: GMSMapView?
     var toolsView: UIView?
+    let countField = UITextField(frame: CGRect(x: 10, y: 10, width: 180, height: 40))
+    let setButton = UIButton(type: UIButton.ButtonType.system)
     
     override func viewDidLoad() {
      
@@ -30,7 +32,6 @@ class ManualViewController: UIViewController {
         toolsView = UIView(frame: toolsRect)
         self.view.addSubview(toolsView!)
         
-        let countField = UITextField(frame: CGRect(x: 10, y: 10, width: 180, height: 40))
         countField.placeholder = "Count Rate"
         countField.textAlignment = .center
         countField.font = countField.font?.withSize(28)
@@ -38,12 +39,12 @@ class ManualViewController: UIViewController {
         countField.keyboardType = UIKeyboardType.decimalPad
         toolsView?.addSubview(countField)
         
-        let setButton = UIButton(type: UIButton.ButtonType.system)
         setButton.frame = CGRect(x: 10, y: 55, width: 180, height: 40)
         setButton.setTitle("Set", for: .normal)
         setButton.titleLabel?.font = setButton.titleLabel?.font.withSize(28)
         setButton.addTarget(self, action: #selector(setCountRate(_:)), for: .touchUpInside)
         toolsView?.addSubview(setButton)
+        
     }
     
     @objc func setCountRate(_ sender: UIButton) {
