@@ -11,7 +11,6 @@ import UIKit
 import GoogleMaps
 
 class ManualViewController: UIViewController {
-    // You don't need to modify the default init(nibName:bundle:) method.
     
     var mapView: GMSMapView?
     var toolsView: UIView?
@@ -31,13 +30,14 @@ class ManualViewController: UIViewController {
         toolsView = UIView(frame: toolsRect)
         self.view.addSubview(toolsView!)
         
-        let numberField = UITextField(frame: CGRect(x: 10, y: 10, width: 180, height: 40))
-        numberField.placeholder = "Count Rate"
-        numberField.textAlignment = .center
-        numberField.font = numberField.font?.withSize(28)
-        numberField.borderStyle = UITextField.BorderStyle.roundedRect
-        numberField.keyboardType = UIKeyboardType.decimalPad
-        toolsView?.addSubview(numberField)
+        let countField = UITextField(frame: CGRect(x: 10, y: 10, width: 180, height: 40))
+        countField.placeholder = "Count Rate"
+        countField.textAlignment = .center
+        countField.font = countField.font?.withSize(28)
+        countField.borderStyle = UITextField.BorderStyle.roundedRect
+        countField.keyboardType = UIKeyboardType.decimalPad
+        toolsView?.addSubview(countField)
+        
         
     }
 }
