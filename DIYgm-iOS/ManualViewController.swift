@@ -31,14 +31,13 @@ class ManualViewController: UIViewController {
         toolsView = UIView(frame: toolsRect)
         self.view.addSubview(toolsView!)
         
-        /*
-        let label = UITextField(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 100))
-        label.text = "Hello"
-        label.textAlignment = .center
-        label.font = label.font.withSize(20)
-        toolsView?.addSubview(label)
-        */
+        let numberField = UITextField(frame: CGRect(x: 10, y: 10, width: 180, height: 40))
+        numberField.placeholder = "Count Rate"
+        numberField.textAlignment = .center
+        numberField.font = numberField.font?.withSize(28)
+        numberField.borderStyle = UITextField.BorderStyle.roundedRect
+        numberField.keyboardType = UIKeyboardType.decimalPad
+        toolsView?.addSubview(numberField)
         
     }
-
 }
