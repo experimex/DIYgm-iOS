@@ -25,6 +25,8 @@ class ManualViewController: UIViewController {
         let camera = GMSCameraPosition.camera(withLatitude: 42.276347, longitude: -83.736247, zoom: 2.0)
         mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: ((self.navigationController?.toolbar.frame.size.height)! + UIApplication.shared.statusBarFrame.size.height + 100), width: self.view.frame.size.width, height: self.view.frame.size.height), camera: camera)
         mapView?.isMyLocationEnabled = true
+        //mapView?.settings.myLocationButton = true
+        //mapView?.settings.compassButton = true
         self.view.addSubview(mapView!)
         
         //Tools view
@@ -46,15 +48,24 @@ class ManualViewController: UIViewController {
         toolsView?.addSubview(setButton)
     }
     
+    //Run when button is pressed
     @objc func setCountRate(_ sender: UIButton) {
-        let marker = GMSMarker()
-        //marker.position = CLLocationCoordinate2D(latitude: CLLocationDegrees(markerCount * 10), longitude: -100)
-        marker.title = "Marker\(markerCount)"
-        marker.snippet = countField.text
-        marker.map = mapView
-        
-        print ("Recorded \(String(describing: marker.snippet)) at \(String(describing: marker.title))")
-        countField.text = ""
-        markerCount += 1
+        if (countField.text == "") {
+            print("No count rate entered")
+        }
+        else if (mapView?.myLocation) == nil {
+            print("Location unknown")
+        }
+        else {
+            let marker = GMSMarker()
+            marker.position = CLLocationCoordinate2D(latitude: (mapView?.myLocation?.coordinate.latitude)!, longitude: (mapView?.myLocation?.coordinate.longitude)!)
+            marker.title = "Marker\(markerCount)"
+            marker.snippet = countField.text
+            marker.map = mapView
+            
+            print ("Recorded \(String(describing: marker.snippet)) at \(String(describing: marker.title))")
+            countField.text = ""
+            markerCount += 1
+        }
     }
 }
