@@ -38,6 +38,15 @@ class ManualViewController: UIViewController {
         countField.keyboardType = UIKeyboardType.decimalPad
         toolsView?.addSubview(countField)
         
-        
+        let setButton = UIButton(type: UIButton.ButtonType.system)
+        setButton.frame = CGRect(x: 10, y: 55, width: 180, height: 40)
+        setButton.setTitle("Set", for: .normal)
+        setButton.titleLabel?.font = setButton.titleLabel?.font.withSize(28)
+        setButton.addTarget(self, action: #selector(setCountRate(_:)), for: .touchUpInside)
+        toolsView?.addSubview(setButton)
+    }
+    
+    @objc func setCountRate(_ sender: UIButton) {
+        print("test")
     }
 }
