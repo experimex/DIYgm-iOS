@@ -16,9 +16,9 @@ class ManualViewController: UIViewController {
     var toolsView: UIView?
     let countField = UITextField(frame: CGRect(x: 10, y: 10, width: 180, height: 40))
     let setButton = UIButton(type: UIButton.ButtonType.system)
+    var markerCount = 1
     
     override func viewDidLoad() {
-     
         super.viewDidLoad()
         
         //Map view
@@ -44,10 +44,17 @@ class ManualViewController: UIViewController {
         setButton.titleLabel?.font = setButton.titleLabel?.font.withSize(28)
         setButton.addTarget(self, action: #selector(setCountRate(_:)), for: .touchUpInside)
         toolsView?.addSubview(setButton)
-        
     }
     
     @objc func setCountRate(_ sender: UIButton) {
-        print("test")
+        let marker = GMSMarker()
+        //marker.position = CLLocationCoordinate2D(latitude: CLLocationDegrees(markerCount * 10), longitude: -100)
+        marker.title = "Marker\(markerCount)"
+        marker.snippet = countField.text
+        marker.map = mapView
+        
+        print ("Recorded \(String(describing: marker.snippet)) at \(String(describing: marker.title))")
+        countField.text = ""
+        markerCount += 1
     }
 }
