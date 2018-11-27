@@ -23,10 +23,11 @@ class ManualViewController: UIViewController {
         
         //Map view
         let camera = GMSCameraPosition.camera(withLatitude: 42.276347, longitude: -83.736247, zoom: 2.0)
-        mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: ((self.navigationController?.toolbar.frame.size.height)! + UIApplication.shared.statusBarFrame.size.height + 100), width: self.view.frame.size.width, height: self.view.frame.size.height), camera: camera)
+        let heightOffset = (self.navigationController?.toolbar.frame.size.height)! + UIApplication.shared.statusBarFrame.size.height + 100 //due to notification bar and navigation bar
+        mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: heightOffset, width: self.view.frame.size.width, height: self.view.frame.size.height - heightOffset), camera: camera)
         mapView?.isMyLocationEnabled = true
-        //mapView?.settings.myLocationButton = true
-        //mapView?.settings.compassButton = true
+        mapView?.settings.myLocationButton = true
+        mapView?.settings.compassButton = true
         self.view.addSubview(mapView!)
         
         //Tools view
@@ -59,7 +60,7 @@ class ManualViewController: UIViewController {
         else {
             let marker = GMSMarker()
             marker.position = CLLocationCoordinate2D(latitude: (mapView?.myLocation?.coordinate.latitude)!, longitude: (mapView?.myLocation?.coordinate.longitude)!)
-            marker.title = "Marker\(markerCount)"
+            marker.title = "Count\(markerCount)"
             marker.snippet = countField.text
             marker.map = mapView
             
