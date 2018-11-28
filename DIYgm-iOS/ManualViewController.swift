@@ -15,8 +15,9 @@ class ManualViewController: UIViewController {
     var mapView: GMSMapView?
     var toolsView: UIView?
     let countField = UITextField(frame: CGRect(x: 10, y: 10, width: 180, height: 40))
-    let setButton = UIButton(type: UIButton.ButtonType.system)
-    var markerCount = 1
+    let undoMarkerButton = UIButton(type: UIButton.ButtonType.system)
+    var markerCount: Int = 0
+    var markers: Array<GMSMarker> = Array()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,9 +44,16 @@ class ManualViewController: UIViewController {
         countField.keyboardType = UIKeyboardType.decimalPad
         toolsView?.addSubview(countField)
         
+        // Undo last marker
+        undoMarkerButton.frame = CGRect(x: 10, y: 55, width: 180, height: 40)
+        undoMarkerButton.setTitle("Undo Marker", for: .normal)
+        undoMarkerButton.titleLabel?.font = undoMarkerButton.titleLabel?.font.withSize(28)
+        undoMarkerButton.addTarget(self, action: #selector(undoMarker(_:)), for: .touchUpInside)
+        toolsView?.addSubview(undoMarkerButton)
+        
         // Keyboard toolbar with set and done button
         let toolbar:UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0,  width: self.view.frame.size.width, height: 30))
-        let flexSpace = UIBarButtonItem(barButtonSystemItem:    .flexibleSpace, target: nil, action: nil) //flexible space on the left in toolbar
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil) // flexible space on the left in toolbar
         let setButton: UIBarButtonItem = UIBarButtonItem(title: "Set", style: .done, target: self, action: #selector(setCountRate(_:)))
         let doneButton: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(closeKeyboard(_:)))
         toolbar.setItems([flexSpace, setButton, doneButton], animated: false)
@@ -53,7 +61,26 @@ class ManualViewController: UIViewController {
         self.countField.inputAccessoryView = toolbar
     }
     
-    // Run when Set button on keyboard is pressed
+    @objc func undoMarker(_ sender: UIButton) {
+        if (markers.count > 0) {
+            markers[markerCount - 1].map = nil
+            markers.removeLast()
+            print("Marker\(markerCount) removed")
+            markerCount -= 1
+        }
+        else {
+            print("No markers to remove")
+        }
+    }
+    
+    /*
+    @objc func removeAllMarkers(_ sender: UIButton) {
+        mapView!.clear()
+        markerCount = 0
+    }
+    */
+    
+    // From Set button on keyboard
     @objc func setCountRate(_ sender: UIButton) {
         if (countField.text == "") {
             print("No count rate entered")
@@ -62,23 +89,24 @@ class ManualViewController: UIViewController {
             print("Location unknown")
         }
         else {
+            markerCount += 1
             let marker = GMSMarker()
             let currentLocation = CLLocationCoordinate2D(latitude: (mapView?.myLocation?.coordinate.latitude)!, longitude: (mapView?.myLocation?.coordinate.longitude)!)
             marker.position = currentLocation
-            marker.title = "Count\(markerCount)"
+            marker.title = "Marker\(markerCount)"
             marker.snippet = countField.text
             marker.map = mapView
+            markers.append(marker)
             
             //Go to marker
             mapView!.animate(toLocation: currentLocation)
             
             print ("Recorded \(String(describing: marker.snippet)) at \(String(describing: marker.title))")
             countField.text = ""
-            markerCount += 1
         }
     }
     
-    // Run when Done button on keyboard is pressed
+    // From Done button on keyboard
     @objc func closeKeyboard(_ sender: UIButton) {
         self.view.endEditing(true)
     }
