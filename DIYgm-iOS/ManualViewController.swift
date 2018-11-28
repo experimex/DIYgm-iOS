@@ -11,10 +11,11 @@ import UIKit
 import GoogleMaps
 
 class ManualViewController: UIViewController {
-    
+
+    var keyboardHeight: CGFloat?
     var mapView: GMSMapView?
     var toolsView: UIView?
-    let countField = UITextField(frame: CGRect(x: 10, y: 10, width: 180, height: 40))
+    let countField = UITextField(frame: CGRect(x: 10, y: 10, width: 150, height: 30))
     let undoMarkerButton = UIButton(type: UIButton.ButtonType.system)
     var markerCount: Int = 0
     var markers: Array<GMSMarker> = Array()
@@ -22,19 +23,24 @@ class ManualViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.navigationBar.barTintColor = UIColor.white
+        
         // Map view
         let camera = GMSCameraPosition.camera(withLatitude: 42.276347, longitude: -83.736247, zoom: 2.0)
-        let heightOffset = (self.navigationController?.toolbar.frame.size.height)! + UIApplication.shared.statusBarFrame.size.height + 100 //due to notification bar and navigation bar
-        mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: heightOffset, width: self.view.frame.size.width, height: self.view.frame.size.height - heightOffset), camera: camera)
+        let heightOffset = (self.navigationController?.toolbar.frame.size.height)! + UIApplication.shared.statusBarFrame.size.height //due to notification bar and navigation bar
+        mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: heightOffset, width: self.view.frame.size.width, height: self.view.frame.size.height - heightOffset - keyboardHeight! - 100), camera: camera)
         mapView?.isMyLocationEnabled = true
         mapView?.settings.myLocationButton = true
         mapView?.settings.compassButton = true
         self.view.addSubview(mapView!)
         
+        
         // Tools view
-        let toolsRect = CGRect(x: 0, y: (self.navigationController?.toolbar.frame.size.height)! + UIApplication.shared.statusBarFrame.size.height, width: self.view.frame.size.width, height: 100)
+        let toolsRect = CGRect(x: 0, y: (self.navigationController?.toolbar.frame.size.height)! + UIApplication.shared.statusBarFrame.size.height + (self.view.frame.size.height - heightOffset - keyboardHeight! - 100), width: self.view.frame.size.width, height: 100)
         toolsView = UIView(frame: toolsRect)
+        toolsView?.backgroundColor = UIColor.white
         self.view.addSubview(toolsView!)
+        
         
         // Text field to enter count rate
         countField.placeholder = "Count Rate"
@@ -43,22 +49,6 @@ class ManualViewController: UIViewController {
         countField.borderStyle = UITextField.BorderStyle.roundedRect
         countField.keyboardType = UIKeyboardType.decimalPad
         toolsView?.addSubview(countField)
-        
-        // Undo last marker
-        undoMarkerButton.frame = CGRect(x: 10, y: 55, width: 180, height: 40)
-        undoMarkerButton.setTitle("Undo Marker", for: .normal)
-        undoMarkerButton.titleLabel?.font = undoMarkerButton.titleLabel?.font.withSize(28)
-        undoMarkerButton.addTarget(self, action: #selector(undoMarker(_:)), for: .touchUpInside)
-        toolsView?.addSubview(undoMarkerButton)
-        
-        // Keyboard toolbar with set and done button
-        let toolbar:UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0,  width: self.view.frame.size.width, height: 30))
-        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil) // flexible space on the left in toolbar
-        let setButton: UIBarButtonItem = UIBarButtonItem(title: "Set", style: .done, target: self, action: #selector(setCountRate(_:)))
-        let doneButton: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(closeKeyboard(_:)))
-        toolbar.setItems([flexSpace, setButton, doneButton], animated: false)
-        toolbar.sizeToFit()
-        self.countField.inputAccessoryView = toolbar
     }
     
     @objc func undoMarker(_ sender: UIButton) {
