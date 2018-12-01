@@ -13,6 +13,7 @@ import GoogleMaps
 class ManualViewController: UIViewController {
 
     var keyboardHeight: CGFloat?
+    var navView: UIView?
     var mapView: GMSMapView?
     var toolsView: UIView?
     let countField = UITextField(frame: CGRect(x: 10, y: 10, width: 150, height: 30))
@@ -25,24 +26,22 @@ class ManualViewController: UIViewController {
         // Open keyboard automatically
         countField.becomeFirstResponder()
         
-        navigationController?.navigationBar.barTintColor = UIColor.white
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 0.976, green: 0.976, blue: 0.976, alpha: 1.0)
+        self.navigationController?.navigationBar.isTranslucent = false
         
         // Map view
         let camera = GMSCameraPosition.camera(withLatitude: 42.276347, longitude: -83.736247, zoom: 2.0)
-        let heightOffset = (self.navigationController?.toolbar.frame.size.height)! + UIApplication.shared.statusBarFrame.size.height //due to notification bar and navigation bar
-        mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: heightOffset, width: self.view.frame.size.width, height: self.view.frame.size.height - heightOffset - keyboardHeight! - 50), camera: camera)
+        mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height - keyboardHeight! - (navigationController?.navigationBar.frame.size.height)! - UIApplication.shared.statusBarFrame.height - 50), camera: camera)
         mapView?.isMyLocationEnabled = true
         mapView?.settings.myLocationButton = true
         mapView?.settings.compassButton = true
         self.view.addSubview(mapView!)
         
-        
         // Tools view
-        let toolsRect = CGRect(x: 0, y: (self.navigationController?.toolbar.frame.size.height)! + UIApplication.shared.statusBarFrame.size.height + (mapView?.frame.size.height)!, width: self.view.frame.size.width, height: 100)
+        let toolsRect = CGRect(x: 0, y: (mapView?.frame.size.height)!, width: self.view.frame.size.width, height: 100)
         toolsView = UIView(frame: toolsRect)
         toolsView?.backgroundColor = UIColor.white
         self.view.addSubview(toolsView!)
-        
         
         // Text field to enter count rate
         countField.placeholder = "Count Rate"
