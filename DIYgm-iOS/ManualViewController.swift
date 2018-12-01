@@ -30,7 +30,7 @@ class ManualViewController: UIViewController {
         // Map view
         let camera = GMSCameraPosition.camera(withLatitude: 42.276347, longitude: -83.736247, zoom: 2.0)
         let heightOffset = (self.navigationController?.toolbar.frame.size.height)! + UIApplication.shared.statusBarFrame.size.height //due to notification bar and navigation bar
-        mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: heightOffset, width: self.view.frame.size.width, height: self.view.frame.size.height - heightOffset - keyboardHeight! - 100), camera: camera)
+        mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: heightOffset, width: self.view.frame.size.width, height: self.view.frame.size.height - heightOffset - keyboardHeight! - 50), camera: camera)
         mapView?.isMyLocationEnabled = true
         mapView?.settings.myLocationButton = true
         mapView?.settings.compassButton = true
@@ -38,7 +38,7 @@ class ManualViewController: UIViewController {
         
         
         // Tools view
-        let toolsRect = CGRect(x: 0, y: (self.navigationController?.toolbar.frame.size.height)! + UIApplication.shared.statusBarFrame.size.height + (self.view.frame.size.height - heightOffset - keyboardHeight! - 100), width: self.view.frame.size.width, height: 100)
+        let toolsRect = CGRect(x: 0, y: (self.navigationController?.toolbar.frame.size.height)! + UIApplication.shared.statusBarFrame.size.height + (mapView?.frame.size.height)!, width: self.view.frame.size.width, height: 100)
         toolsView = UIView(frame: toolsRect)
         toolsView?.backgroundColor = UIColor.white
         self.view.addSubview(toolsView!)
@@ -54,9 +54,9 @@ class ManualViewController: UIViewController {
         
         // Set count rate button
         let setButton = UIButton(type: UIButton.ButtonType.system)
-        setButton.frame = CGRect(x: countField.frame.size.width + 20, y: 10, width: 100, height: 30)
+        setButton.frame = CGRect(x: countField.frame.size.width + 20, y: 10, width: 60, height: 30)
         setButton.setTitle("Set", for: .normal)
-        setButton.titleLabel?.font = setButton.titleLabel?.font.withSize(28)
+        setButton.titleLabel?.font = setButton.titleLabel?.font.withSize(24)
         setButton.addTarget(self, action: #selector(setCountRate(_:)), for: .touchUpInside)
         toolsView?.addSubview(setButton)
         
