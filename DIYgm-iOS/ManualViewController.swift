@@ -16,7 +16,6 @@ class ManualViewController: UIViewController {
     var mapView: GMSMapView?
     var toolsView: UIView?
     let countField = UITextField(frame: CGRect(x: 10, y: 10, width: 150, height: 30))
-    let undoMarkerButton = UIButton(type: UIButton.ButtonType.system)
     var markerCount: Int = 0
     var markers: Array<GMSMarker> = Array()
     
@@ -53,6 +52,15 @@ class ManualViewController: UIViewController {
         countField.keyboardType = UIKeyboardType.decimalPad
         toolsView?.addSubview(countField)
         
+        // Set count rate button
+        let setButton = UIButton(type: UIButton.ButtonType.system)
+        setButton.frame = CGRect(x: countField.frame.size.width + 20, y: 10, width: 100, height: 30)
+        setButton.setTitle("Set", for: .normal)
+        setButton.titleLabel?.font = setButton.titleLabel?.font.withSize(28)
+        setButton.addTarget(self, action: #selector(setCountRate(_:)), for: .touchUpInside)
+        toolsView?.addSubview(setButton)
+        
+        /*
         // Keyboard toolbar with set and done button
         let toolbar:UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0,  width: self.view.frame.size.width, height: 50))
         let flexSpaceLeft = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
@@ -63,30 +71,7 @@ class ManualViewController: UIViewController {
         toolbar.setItems([flexSpaceLeft, setButton, undoButton, removeAllButton, flexSpaceRight], animated: false)
         toolbar.sizeToFit()
         self.countField.inputAccessoryView = toolbar
-    }
-    
-    @objc func undoMarker(_ sender: UIButton) {
-        if (markerCount > 0) {
-            markers[markerCount - 1].map = nil
-            markers.removeLast()
-            print("Marker\(markerCount) removed")
-            markerCount -= 1
-        }
-        else {
-            print("No markers to remove")
-        }
-    }
-    
-    @objc func removeAllMarkers(_ sender: UIButton) {
-        if (markers.count > 0) {
-            mapView!.clear()
-            markerCount = 0
-            print("Removed all markers")
-        }
-        else {
-            print("No markers to remove")
-        }
-        
+        */
     }
     
     // From Set button on keyboard
@@ -113,6 +98,30 @@ class ManualViewController: UIViewController {
             print ("Recorded \(String(describing: marker.snippet)) at \(String(describing: marker.title))")
             countField.text = ""
         }
+    }
+    
+    @objc func undoMarker(_ sender: UIButton) {
+        if (markerCount > 0) {
+            markers[markerCount - 1].map = nil
+            markers.removeLast()
+            print("Marker\(markerCount) removed")
+            markerCount -= 1
+        }
+        else {
+            print("No markers to remove")
+        }
+    }
+    
+    @objc func removeAllMarkers(_ sender: UIButton) {
+        if (markers.count > 0) {
+            mapView!.clear()
+            markerCount = 0
+            print("Removed all markers")
+        }
+        else {
+            print("No markers to remove")
+        }
+        
     }
     
     // From Done button on keyboard
