@@ -49,10 +49,21 @@ class ManualViewController: UIViewController {
         countField.borderStyle = UITextField.BorderStyle.roundedRect
         countField.keyboardType = UIKeyboardType.decimalPad
         toolsView?.addSubview(countField)
+        
+        // Keyboard toolbar with set and done button
+        let toolbar:UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0,  width: self.view.frame.size.width, height: 50))
+        let flexSpaceLeft = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let setButton: UIBarButtonItem = UIBarButtonItem(title: "Set Marker", style: .done, target: self, action: #selector(setCountRate(_:)))
+        let undoButton: UIBarButtonItem = UIBarButtonItem(title: "Undo Marker", style: .done, target: self, action: #selector(undoMarker(_:)))
+        let removeAllButton: UIBarButtonItem = UIBarButtonItem(title: "Remove All", style: .done, target: self, action: #selector(removeAllMarkers(_:)))
+        let flexSpaceRight = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        toolbar.setItems([flexSpaceLeft, setButton, undoButton, removeAllButton, flexSpaceRight], animated: false)
+        toolbar.sizeToFit()
+        self.countField.inputAccessoryView = toolbar
     }
     
     @objc func undoMarker(_ sender: UIButton) {
-        if (markers.count > 0) {
+        if (markerCount > 0) {
             markers[markerCount - 1].map = nil
             markers.removeLast()
             print("Marker\(markerCount) removed")
@@ -63,12 +74,17 @@ class ManualViewController: UIViewController {
         }
     }
     
-    /*
     @objc func removeAllMarkers(_ sender: UIButton) {
-        mapView!.clear()
-        markerCount = 0
+        if (markers.count > 0) {
+            mapView!.clear()
+            markerCount = 0
+            print("Removed all markers")
+        }
+        else {
+            print("No markers to remove")
+        }
+        
     }
-    */
     
     // From Set button on keyboard
     @objc func setCountRate(_ sender: UIButton) {
