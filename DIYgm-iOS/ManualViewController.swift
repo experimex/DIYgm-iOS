@@ -23,6 +23,9 @@ class ManualViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Open keyboard automatically
+        countField.becomeFirstResponder()
+        
         navigationController?.navigationBar.barTintColor = UIColor.white
         
         // Map view
