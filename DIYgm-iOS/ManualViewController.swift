@@ -51,7 +51,7 @@ class ManualViewController: UIViewController {
         countField!.keyboardType = UIKeyboardType.decimalPad
         toolsView?.addSubview(countField!)
         
-        // Tools view: Set count rate button
+        // Tools view: Button to set count rate
         let setButton = UIButton(type: UIButton.ButtonType.system)
         setButton.frame = CGRect(x: countField!.frame.size.width + 25, y: 10, width: 60, height: 30)
         setButton.setTitle("Set", for: .normal)
@@ -59,7 +59,7 @@ class ManualViewController: UIViewController {
         setButton.addTarget(self, action: #selector(setCountRate(_:)), for: .touchUpInside)
         toolsView?.addSubview(setButton)
         
-        // Tools view: Show popup tools button
+        // Tools view: Button to show popup tools
         let showPopupButton = UIButton(type: UIButton.ButtonType.system)
         showPopupButton.frame = CGRect(x: self.view.frame.size.width - 80, y: 10, width: 60, height: 30)
         showPopupButton.setTitle("Tools", for: .normal)
@@ -74,18 +74,6 @@ class ManualViewController: UIViewController {
         self.view.addSubview(popupToolsView!)
         self.view.bringSubviewToFront(toolsView!)
         
-        /*
-        // Keyboard toolbar with set and done button
-        let toolbar:UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0,  width: self.view.frame.size.width, height: 50))
-        let flexSpaceLeft = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let setButton: UIBarButtonItem = UIBarButtonItem(title: "Set Marker", style: .done, target: self, action: #selector(setCountRate(_:)))
-        let undoButton: UIBarButtonItem = UIBarButtonItem(title: "Undo Marker", style: .done, target: self, action: #selector(undoMarker(_:)))
-        let removeAllButton: UIBarButtonItem = UIBarButtonItem(title: "Remove All", style: .done, target: self, action: #selector(removeAllMarkers(_:)))
-        let flexSpaceRight = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        toolbar.setItems([flexSpaceLeft, setButton, undoButton, removeAllButton, flexSpaceRight], animated: false)
-        toolbar.sizeToFit()
-        self.countField!.inputAccessoryView = toolbar
-        */
     }
     
     // From Set button on keyboard
