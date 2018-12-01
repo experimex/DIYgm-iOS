@@ -153,9 +153,5 @@ class ManualViewController: UIViewController {
         }
         
     }
-    
-    // From Done button on keyboard
-    @objc func closeKeyboard(_ sender: UIButton) {
-        self.view.endEditing(true)
-    }
+
 }
