@@ -70,10 +70,26 @@ class ManualViewController: UIViewController {
         // Popup tools view
         let popupToolsRect = CGRect(x: self.view.frame.size.width - 200, y: (mapView?.frame.size.height)!, width: 200, height: 200)
         popupToolsView = UIView(frame: popupToolsRect)
-        popupToolsView!.backgroundColor = UIColor.blue
+        popupToolsView!.backgroundColor = UIColor.white
         self.view.addSubview(popupToolsView!)
         self.view.bringSubviewToFront(toolsView!)
         
+        // Popup tools view: Button to undo marker
+        let undoMarkerButton = UIButton(type: UIButton.ButtonType.system)
+        undoMarkerButton.frame = CGRect(x: 10, y: 10, width: 180, height: 30)
+        undoMarkerButton.setTitle("Undo Marker", for: .normal)
+        undoMarkerButton.titleLabel?.font = undoMarkerButton.titleLabel?.font.withSize(20)
+        undoMarkerButton.addTarget(self, action: #selector(undoMarker(_:)), for: .touchUpInside)
+        popupToolsView?.addSubview(undoMarkerButton)
+        
+        // Popup tools view: Button to remove all markers
+        let removeAllButton = UIButton(type: UIButton.ButtonType.system)
+        removeAllButton.frame = CGRect(x: 10, y: 50, width: 180, height: 30)
+        removeAllButton.setTitle("Remove All", for: .normal)
+        removeAllButton.titleLabel?.font = removeAllButton.titleLabel?.font.withSize(20)
+        removeAllButton.addTarget(self, action: #selector(removeAllMarkers(_:)), for: .touchUpInside)
+        popupToolsView?.addSubview(removeAllButton)
+
     }
     
     // From Set button on keyboard
