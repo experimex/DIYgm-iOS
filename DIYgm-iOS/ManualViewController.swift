@@ -69,7 +69,7 @@ class ManualViewController: UIViewController {
         toolsView?.addSubview(showPopupButton)
         
         // Popup tools view
-        let popupToolsRect = CGRect(x: self.view.frame.size.width - 200, y: (mapView?.frame.size.height)!, width: 200, height: 200)
+        let popupToolsRect = CGRect(x: self.view.frame.size.width - 200, y: (mapView?.frame.size.height)!, width: 200, height: 170)
         popupToolsView = UIView(frame: popupToolsRect)
         popupToolsView!.backgroundColor = UIColor(red: 0.98, green: 0.98, blue: 0.98, alpha: 0.875)
         self.view.addSubview(popupToolsView!)
@@ -99,6 +99,13 @@ class ManualViewController: UIViewController {
         heatmapButton.addTarget(self, action: #selector(toggleHeatmap(_:)), for: .touchUpInside)
         popupToolsView?.addSubview(heatmapButton)
         
+        // Popup tools view: Button to export data
+        let exportDataButton = UIButton(type: UIButton.ButtonType.system)
+        exportDataButton.frame = CGRect(x: 10, y: 130, width: 180, height: 30)
+        exportDataButton.setTitle("Export Data", for: .normal)
+        exportDataButton.titleLabel?.font = exportDataButton.titleLabel?.font.withSize(20)
+        exportDataButton.addTarget(self, action: #selector(exportData(_:)), for: .touchUpInside)
+        popupToolsView?.addSubview(exportDataButton)
     }
     
     // From Set button on keyboard
@@ -130,14 +137,14 @@ class ManualViewController: UIViewController {
     @objc func showPopupTools(_ sender: UIButton) {
         self.view.bringSubviewToFront(toolsView!)
         
-        if (popupToolsHidden) { // Move it up 200 pixels
+        if (popupToolsHidden) { // Move it up 170 pixels
             UIView.animate(withDuration: 0.2, delay: 0, options: [], animations: {
-                self.popupToolsView!.frame = CGRect(x: self.view.frame.size.width - 200, y: (self.mapView?.frame.size.height)! - 200, width: 200, height: 200)
+                self.popupToolsView!.frame = CGRect(x: self.view.frame.size.width - 200, y: (self.mapView?.frame.size.height)! - 170, width: 200, height: 170)
             })
         }
         else { // Move it down 200 pixels
             UIView.animate(withDuration: 0.2, delay: 0, options: [], animations: {
-                self.popupToolsView!.frame = CGRect(x: self.view.frame.size.width - 200, y: (self.mapView?.frame.size.height)!, width: 200, height: 200)
+                self.popupToolsView!.frame = CGRect(x: self.view.frame.size.width - 200, y: (self.mapView?.frame.size.height)!, width: 200, height: 170)
             })
         }
         self.popupToolsHidden = !self.popupToolsHidden
@@ -179,4 +186,10 @@ class ManualViewController: UIViewController {
         }
         heatmapOn = !heatmapOn
     }
+    
+    @objc func exportData(_ sender: UIButton) {
+        // implement later
+        print("Data exported")
+    }
+    
 }
