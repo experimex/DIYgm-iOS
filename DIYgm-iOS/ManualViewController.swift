@@ -21,6 +21,7 @@ class ManualViewController: UIViewController {
     var markerCount: Int = 0
     var markers: Array<GMSMarker> = Array()
     var popupToolsHidden = true
+    var heatmapOn = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,7 +90,15 @@ class ManualViewController: UIViewController {
         removeAllButton.titleLabel?.font = removeAllButton.titleLabel?.font.withSize(20)
         removeAllButton.addTarget(self, action: #selector(removeAllMarkers(_:)), for: .touchUpInside)
         popupToolsView?.addSubview(removeAllButton)
-
+        
+        // Popup tools view: Button to toggle heatmap
+        let heatmapButton = UIButton(type: UIButton.ButtonType.system)
+        heatmapButton.frame = CGRect(x: 10, y: 90, width: 180, height: 30)
+        heatmapButton.setTitle("Toggle heatmap on", for: .normal)
+        heatmapButton.titleLabel?.font = heatmapButton.titleLabel?.font.withSize(20)
+        heatmapButton.addTarget(self, action: #selector(toggleHeatmap(_:)), for: .touchUpInside)
+        popupToolsView?.addSubview(heatmapButton)
+        
     }
     
     // From Set button on keyboard
@@ -155,7 +164,19 @@ class ManualViewController: UIViewController {
         else {
             print("No markers to remove")
         }
-        
     }
-
+    
+    @objc func toggleHeatmap(_ sender: UIButton) {
+        if (heatmapOn) { // toggle off
+            // implement later
+            print("Toggled heatmap off")
+            sender.setTitle("Toggle heatmap on", for: .normal)
+        }
+        else {
+            // implement later
+            print("Toggled heatmap on")
+            sender.setTitle("Toggle heatmap off", for: .normal)
+        }
+        heatmapOn = !heatmapOn
+    }
 }
