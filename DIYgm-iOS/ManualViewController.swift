@@ -12,17 +12,20 @@ import GoogleMaps
 
 class ManualViewController: UIViewController {
 
-    var keyboardHeight: CGFloat?
+    // Declare here for global use
     var navView: UIView?
     var mapView: GMSMapView?
     var toolsView: UIView?
     var popupToolsView: UIView?
-    var countField: UITextField? = UITextField(frame: CGRect(x: 20, y: 10, width: 150, height: 30))
+    var countField: UITextField?
+    var heatmapSwitch = UISwitch()
+    
+    var keyboardHeight: CGFloat?
     var markerCount: Int = 0
     var markers: Array<GMSMarker> = Array()
     var popupToolsHidden = true
     var heatmapOn = false
-    var heatmapSwitch = UISwitch()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,12 +48,13 @@ class ManualViewController: UIViewController {
         self.view.addSubview(toolsView!)
         
         // Tools view: Text field to enter count rate
-        countField!.becomeFirstResponder() // Open keyboard automatically
+        countField = UITextField(frame: CGRect(x: 20, y: 10, width: 150, height: 30))
         countField!.placeholder = "Count Rate"
         countField!.textAlignment = .center
         countField!.font = countField!.font?.withSize(28)
         countField!.borderStyle = UITextField.BorderStyle.roundedRect
         countField!.keyboardType = UIKeyboardType.decimalPad
+        countField!.becomeFirstResponder() // Open keyboard automatically
         toolsView?.addSubview(countField!)
         
         // Tools view: Button to set count rate
