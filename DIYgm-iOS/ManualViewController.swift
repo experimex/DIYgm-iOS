@@ -26,6 +26,7 @@ class ManualViewController: UIViewController {
     var popupToolsHidden = true
     var heatmapOn = false
     
+    var heatmapLayer: GMUHeatmapTileLayer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -117,6 +118,9 @@ class ManualViewController: UIViewController {
         exportDataButton.titleLabel?.font = exportDataButton.titleLabel?.font.withSize(24)
         exportDataButton.addTarget(self, action: #selector(exportData(_:)), for: .touchUpInside)
         popupToolsView?.addSubview(exportDataButton)
+        
+        heatmapLayer = GMUHeatmapTileLayer()
+        heatmapLayer.radius = 50
     }
     
     @objc func setCountRate(_ sender: UIButton) {
@@ -184,13 +188,15 @@ class ManualViewController: UIViewController {
     }
     
     @objc func toggleHeatmap(_ sender: UIButton) {
+        
         if (heatmapOn) { // toggle off
-            // implement later
+            heatmapLayer.map = nil
             heatmapSwitch.setOn(false, animated: true)
             print("Toggled heatmap off")
         }
         else {
-            // implement later
+            addHeatmap()
+            heatmapLayer.map = mapView
             heatmapSwitch.setOn(true, animated: true)
             print("Toggled heatmap on")
         }
@@ -201,5 +207,20 @@ class ManualViewController: UIViewController {
         // implement later
         print("Data exported")
     }
-    
+ 
+    func addHeatmap()  {
+        var list = [GMUWeightedLatLng]()
+        for marker in markers {
+            let lat = marker.position.latitude
+            let lng = marker.position.longitude
+            let coords = GMUWeightedLatLng(coordinate: CLLocationCoordinate2DMake(lat, lng), intensity: Float(marker.snippet!)!)
+            list.append(coords)
+            print(lat)
+            print(lng)
+        }
+        // Add the latlngs to the heatmap layer.
+        heatmapLayer.weightedData = list
+        
+    }
+
 }
