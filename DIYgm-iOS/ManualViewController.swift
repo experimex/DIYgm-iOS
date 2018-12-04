@@ -22,6 +22,7 @@ class ManualViewController: UIViewController {
     var markers: Array<GMSMarker> = Array()
     var popupToolsHidden = true
     var heatmapOn = false
+    var heatmapSwitch = UISwitch()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,7 +57,7 @@ class ManualViewController: UIViewController {
         let setButton = UIButton(type: UIButton.ButtonType.system)
         setButton.frame = CGRect(x: countField!.frame.size.width + 25, y: 10, width: 60, height: 30)
         setButton.setTitle("Set", for: .normal)
-        setButton.titleLabel?.font = setButton.titleLabel?.font.withSize(24)
+        setButton.titleLabel?.font = setButton.titleLabel?.font.withSize(26)
         setButton.addTarget(self, action: #selector(setCountRate(_:)), for: .touchUpInside)
         toolsView?.addSubview(setButton)
         
@@ -64,7 +65,7 @@ class ManualViewController: UIViewController {
         let showPopupButton = UIButton(type: UIButton.ButtonType.system)
         showPopupButton.frame = CGRect(x: self.view.frame.size.width - 80, y: 10, width: 60, height: 30)
         showPopupButton.setTitle("Tools", for: .normal)
-        showPopupButton.titleLabel?.font = setButton.titleLabel?.font.withSize(24)
+        showPopupButton.titleLabel?.font = setButton.titleLabel?.font.withSize(26)
         showPopupButton.addTarget(self, action: #selector(showPopupTools(_:)), for: .touchUpInside)
         toolsView?.addSubview(showPopupButton)
         
@@ -75,40 +76,45 @@ class ManualViewController: UIViewController {
         self.view.addSubview(popupToolsView!)
         self.view.bringSubviewToFront(toolsView!)
         
-        // Popup tools view: Button to undo marker
+        // Popup tools view: Undo marker button
         let undoMarkerButton = UIButton(type: UIButton.ButtonType.system)
         undoMarkerButton.frame = CGRect(x: 10, y: 10, width: 180, height: 30)
         undoMarkerButton.setTitle("Undo Marker", for: .normal)
-        undoMarkerButton.titleLabel?.font = undoMarkerButton.titleLabel?.font.withSize(20)
+        undoMarkerButton.titleLabel?.font = undoMarkerButton.titleLabel?.font.withSize(24)
         undoMarkerButton.addTarget(self, action: #selector(undoMarker(_:)), for: .touchUpInside)
         popupToolsView?.addSubview(undoMarkerButton)
         
-        // Popup tools view: Button to remove all markers
+        // Popup tools view: Remove all markers button
         let removeAllButton = UIButton(type: UIButton.ButtonType.system)
         removeAllButton.frame = CGRect(x: 10, y: 50, width: 180, height: 30)
         removeAllButton.setTitle("Remove All", for: .normal)
-        removeAllButton.titleLabel?.font = removeAllButton.titleLabel?.font.withSize(20)
+        removeAllButton.titleLabel?.font = removeAllButton.titleLabel?.font.withSize(24)
         removeAllButton.addTarget(self, action: #selector(removeAllMarkers(_:)), for: .touchUpInside)
         popupToolsView?.addSubview(removeAllButton)
         
-        // Popup tools view: Button to toggle heatmap
+        // Popup tools view: Heatmap button
         let heatmapButton = UIButton(type: UIButton.ButtonType.system)
-        heatmapButton.frame = CGRect(x: 10, y: 90, width: 180, height: 30)
-        heatmapButton.setTitle("Toggle Heatmap On", for: .normal)
-        heatmapButton.titleLabel?.font = heatmapButton.titleLabel?.font.withSize(20)
+        heatmapButton.frame = CGRect(x: 20, y: 90, width: 100, height: 30)
+        heatmapButton.setTitle("Heatmap", for: .normal)
+        heatmapButton.titleLabel?.font = heatmapButton.titleLabel?.font.withSize(24)
         heatmapButton.addTarget(self, action: #selector(toggleHeatmap(_:)), for: .touchUpInside)
+        heatmapButton.contentHorizontalAlignment = .left
         popupToolsView?.addSubview(heatmapButton)
         
-        // Popup tools view: Button to export data
+        // Popup tools view: Heatmap switch
+        heatmapSwitch.frame = CGRect(x: 130, y: 90, width: 50, height: 30)
+        heatmapSwitch.addTarget(self, action: #selector(toggleHeatmap(_:)), for: .touchUpInside)
+        popupToolsView?.addSubview(heatmapSwitch)
+        
+        // Popup tools view: Export data button
         let exportDataButton = UIButton(type: UIButton.ButtonType.system)
         exportDataButton.frame = CGRect(x: 10, y: 130, width: 180, height: 30)
         exportDataButton.setTitle("Export Data", for: .normal)
-        exportDataButton.titleLabel?.font = exportDataButton.titleLabel?.font.withSize(20)
+        exportDataButton.titleLabel?.font = exportDataButton.titleLabel?.font.withSize(24)
         exportDataButton.addTarget(self, action: #selector(exportData(_:)), for: .touchUpInside)
         popupToolsView?.addSubview(exportDataButton)
     }
     
-    // From Set button on keyboard
     @objc func setCountRate(_ sender: UIButton) {
         if (countField!.text == "") {
             print("No count rate entered")
@@ -176,13 +182,13 @@ class ManualViewController: UIViewController {
     @objc func toggleHeatmap(_ sender: UIButton) {
         if (heatmapOn) { // toggle off
             // implement later
+            heatmapSwitch.setOn(false, animated: true)
             print("Toggled heatmap off")
-            sender.setTitle("Toggle Heatmap On", for: .normal)
         }
         else {
             // implement later
+            heatmapSwitch.setOn(true, animated: true)
             print("Toggled heatmap on")
-            sender.setTitle("Toggle Heatmap Off", for: .normal)
         }
         heatmapOn = !heatmapOn
     }
