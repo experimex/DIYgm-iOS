@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        //Add Google API key from Keys.plist file
+        // Add Google API key from Keys.plist file
         if let path = Bundle.main.path(forResource: "Keys", ofType: "plist"),
             let keyDict = NSDictionary(contentsOfFile: path){
             let key = keyDict["GoogleAPI"]
