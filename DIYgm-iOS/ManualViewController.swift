@@ -12,21 +12,17 @@ import GoogleMaps
 
 class ManualViewController: UIViewController {
 
-    // Declare here for global use
+    // Objects declared here for global use
     var navView: UIView?
     var mapView: GMSMapView?
     var toolsView: UIView?
     var popupToolsView: UIView?
     var countField: UITextField?
-    var heatmapSwitch = UISwitch()
     
     var keyboardHeight: CGFloat?
     var markerCount: Int = 0
     var markers: Array<GMSMarker> = Array()
     var popupToolsHidden = true
-    var heatmapOn = false
-    
-    var heatmapLayer: GMUHeatmapTileLayer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,20 +93,6 @@ class ManualViewController: UIViewController {
         removeAllButton.addTarget(self, action: #selector(removeAllMarkers(_:)), for: .touchUpInside)
         popupToolsView?.addSubview(removeAllButton)
         
-        // Popup tools view: Heatmap button
-        let heatmapButton = UIButton(type: UIButton.ButtonType.system)
-        heatmapButton.frame = CGRect(x: 20, y: 90, width: 100, height: 30)
-        heatmapButton.setTitle("Heatmap", for: .normal)
-        heatmapButton.titleLabel?.font = heatmapButton.titleLabel?.font.withSize(24)
-        heatmapButton.addTarget(self, action: #selector(toggleHeatmap(_:)), for: .touchUpInside)
-        heatmapButton.contentHorizontalAlignment = .left
-        popupToolsView?.addSubview(heatmapButton)
-        
-        // Popup tools view: Heatmap switch
-        heatmapSwitch.frame = CGRect(x: 130, y: 90, width: 50, height: 30)
-        heatmapSwitch.addTarget(self, action: #selector(toggleHeatmap(_:)), for: .touchUpInside)
-        popupToolsView?.addSubview(heatmapSwitch)
-        
         // Popup tools view: Export data button
         let exportDataButton = UIButton(type: UIButton.ButtonType.system)
         exportDataButton.frame = CGRect(x: 10, y: 130, width: 180, height: 30)
@@ -118,9 +100,6 @@ class ManualViewController: UIViewController {
         exportDataButton.titleLabel?.font = exportDataButton.titleLabel?.font.withSize(24)
         exportDataButton.addTarget(self, action: #selector(exportData(_:)), for: .touchUpInside)
         popupToolsView?.addSubview(exportDataButton)
-        
-        heatmapLayer = GMUHeatmapTileLayer()
-        heatmapLayer.radius = 50
     }
     
     @objc func setCountRate(_ sender: UIButton) {
@@ -131,14 +110,20 @@ class ManualViewController: UIViewController {
             print("Location unknown")
         }
         else {
-            markerCount += 1
             let marker = GMSMarker()
             let currentLocation = CLLocationCoordinate2D(latitude: (mapView?.myLocation?.coordinate.latitude)!, longitude: (mapView?.myLocation?.coordinate.longitude)!)
             marker.position = currentLocation
             marker.title = "Marker\(markerCount)"
             marker.snippet = countField!.text
+            
+            // Marker's color saturation is based on count rate
+            let highValue: CGFloat = 100.0
+            let sat = CGFloat(Int(countField!.text!)!) / highValue
+            marker.icon = GMSMarker.markerImage(with: UIColor(hue: 0.0, saturation: sat, brightness: 1.0, alpha: 1.0))
+            
             marker.map = mapView
             markers.append(marker)
+            markerCount += 1
             
             //Go to marker
             mapView!.animate(toLocation: currentLocation)
@@ -179,6 +164,7 @@ class ManualViewController: UIViewController {
     @objc func removeAllMarkers(_ sender: UIButton) {
         if (markers.count > 0) {
             mapView!.clear()
+            //markers = []
             markerCount = 0
             print("Removed all markers")
         }
@@ -187,40 +173,8 @@ class ManualViewController: UIViewController {
         }
     }
     
-    @objc func toggleHeatmap(_ sender: UIButton) {
-        
-        if (heatmapOn) { // toggle off
-            heatmapLayer.map = nil
-            heatmapSwitch.setOn(false, animated: true)
-            print("Toggled heatmap off")
-        }
-        else {
-            addHeatmap()
-            heatmapLayer.map = mapView
-            heatmapSwitch.setOn(true, animated: true)
-            print("Toggled heatmap on")
-        }
-        heatmapOn = !heatmapOn
-    }
-    
     @objc func exportData(_ sender: UIButton) {
         // implement later
         print("Data exported")
     }
- 
-    func addHeatmap()  {
-        var list = [GMUWeightedLatLng]()
-        for marker in markers {
-            let lat = marker.position.latitude
-            let lng = marker.position.longitude
-            let coords = GMUWeightedLatLng(coordinate: CLLocationCoordinate2DMake(lat, lng), intensity: Float(marker.snippet!)!)
-            list.append(coords)
-            print(lat)
-            print(lng)
-        }
-        // Add the latlngs to the heatmap layer.
-        heatmapLayer.weightedData = list
-        
-    }
-
 }
