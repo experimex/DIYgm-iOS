@@ -174,7 +174,42 @@ class ManualViewController: UIViewController {
     }
     
     @objc func exportData(_ sender: UIButton) {
-        // implement later
-        print("Data exported")
+        let fileName = "diygm_count_rates.csv"
+        let path = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)
+        
+        var csvText = "Latitude,Longitude,Count Rate\n"
+        
+        if markers.count > 0 {
+            
+            for marker in markers {
+                let newLine = "\(marker.position.latitude),\(marker.position.longitude),\(marker.snippet!)\n"
+                csvText = csvText + newLine
+            }
+            
+            do {
+                try csvText.write(to: path!, atomically: true, encoding: String.Encoding.utf8)
+                
+                let vc = UIActivityViewController(activityItems: [path], applicationActivities: [])
+                vc.excludedActivityTypes = [
+                    UIActivity.ActivityType.assignToContact,
+                    UIActivity.ActivityType.saveToCameraRoll,
+                    UIActivity.ActivityType.postToFlickr,
+                    UIActivity.ActivityType.postToVimeo,
+                    UIActivity.ActivityType.postToTencentWeibo,
+                    UIActivity.ActivityType.postToTwitter,
+                    UIActivity.ActivityType.postToFacebook,
+                    UIActivity.ActivityType.openInIBooks
+                ]
+                present(vc, animated: true, completion: nil)
+                
+            } catch {
+                print("Failed to create file")
+                print("\(error)")
+            }
+            
+        } else {
+            print("There is no data to export")
+        }
+        
     }
 }
