@@ -71,7 +71,7 @@ class ManualViewController: UIViewController {
         toolsView?.addSubview(showPopupButton)
         
         // Popup tools view
-        let popupToolsRect = CGRect(x: self.view.frame.size.width - 200, y: (mapView?.frame.size.height)!, width: 200, height: 170)
+        let popupToolsRect = CGRect(x: self.view.frame.size.width - 200, y: (mapView?.frame.size.height)!, width: 200, height: 130)
         popupToolsView = UIView(frame: popupToolsRect)
         popupToolsView!.backgroundColor = UIColor(red: 0.98, green: 0.98, blue: 0.98, alpha: 0.875)
         self.view.addSubview(popupToolsView!)
@@ -95,7 +95,7 @@ class ManualViewController: UIViewController {
         
         // Popup tools view: Export data button
         let exportDataButton = UIButton(type: UIButton.ButtonType.system)
-        exportDataButton.frame = CGRect(x: 10, y: 130, width: 180, height: 30)
+        exportDataButton.frame = CGRect(x: 10, y: 90, width: 180, height: 30)
         exportDataButton.setTitle("Export Data", for: .normal)
         exportDataButton.titleLabel?.font = exportDataButton.titleLabel?.font.withSize(24)
         exportDataButton.addTarget(self, action: #selector(exportData(_:)), for: .touchUpInside)
@@ -136,12 +136,12 @@ class ManualViewController: UIViewController {
     @objc func showPopupTools(_ sender: UIButton) {
         self.view.bringSubviewToFront(toolsView!)
         
-        if (popupToolsHidden) { // Move it up 170 pixels
+        if (popupToolsHidden) { // Move it up 130 pixels
             UIView.animate(withDuration: 0.2, delay: 0, options: [], animations: {
-                self.popupToolsView!.frame = CGRect(x: self.view.frame.size.width - 200, y: (self.mapView?.frame.size.height)! - 170, width: 200, height: 170)
+                self.popupToolsView!.frame = CGRect(x: self.view.frame.size.width - 200, y: (self.mapView?.frame.size.height)! - 130, width: 200, height: 170)
             })
         }
-        else { // Move it down 200 pixels
+        else { // Return to hidden behind keyboard
             UIView.animate(withDuration: 0.2, delay: 0, options: [], animations: {
                 self.popupToolsView!.frame = CGRect(x: self.view.frame.size.width - 200, y: (self.mapView?.frame.size.height)!, width: 200, height: 170)
             })
@@ -164,7 +164,7 @@ class ManualViewController: UIViewController {
     @objc func removeAllMarkers(_ sender: UIButton) {
         if (markers.count > 0) {
             mapView!.clear()
-            //markers = []
+            markers = []
             markerCount = 0
             print("Removed all markers")
         }
