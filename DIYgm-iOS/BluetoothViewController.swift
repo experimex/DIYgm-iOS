@@ -9,8 +9,9 @@
 import Foundation
 import UIKit
 import GoogleMaps
+import CoreBluetooth
 
-class BluetoothViewController: UIViewController {
+class BluetoothViewController: UIViewController, CBCentralManagerDelegate {
     
     // Objects declared here for global use
     var navView: UIView?
@@ -18,6 +19,8 @@ class BluetoothViewController: UIViewController {
     var toolsView: UIView?
     var popupToolsView: UIView?
     var countLabel: UILabel?
+    
+    var centralManager: CBCentralManager?
     
     var markerCount: Int = 0
     var markers: Array<GMSMarker> = Array()
@@ -28,6 +31,8 @@ class BluetoothViewController: UIViewController {
         
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 0.976, green: 0.976, blue: 0.976, alpha: 1.0)
         self.navigationController?.navigationBar.isTranslucent = false
+        
+        centralManager = CBCentralManager(delegate: self, queue: nil)
         
         // Map view
         let camera = GMSCameraPosition.camera(withLatitude: 42.276347, longitude: -83.736247, zoom: 2.0)
@@ -75,7 +80,6 @@ class BluetoothViewController: UIViewController {
         countLabel!.font = countLabel!.font?.withSize(100)
         toolsView?.addSubview(countLabel!)
         
-        
         // Popup tools view
         let popupToolsRect = CGRect(x: self.view.frame.size.width - 200, y: (mapView?.frame.size.height)!, width: 200, height: 130)
         popupToolsView = UIView(frame: popupToolsRect)
@@ -106,6 +110,29 @@ class BluetoothViewController: UIViewController {
         exportDataButton.titleLabel?.font = exportDataButton.titleLabel?.font.withSize(24)
         exportDataButton.addTarget(self, action: #selector(exportData(_:)), for: .touchUpInside)
         popupToolsView?.addSubview(exportDataButton)
+    }
+    
+    func centralManagerDidUpdateState(_ central: CBCentralManager) {
+        if central.state == .poweredOn {
+            central.scanForPeripherals(withServices: nil, options: nil)
+            
+        } else {
+            let alertVC = UIAlertController(title: "Bluetooth isn't working", message: "Make sure your Bluetooth is on.", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "Ok", style: .default, handler: { (action) in alertVC.dismiss(animated: true, completion: nil) })
+            alertVC.addAction(okAction)
+            present(alertVC, animated: true, completion: nil)
+        }
+    }
+    
+    func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
+        
+        if let name = peripheral.name {
+            print("Name: \(name)")
+        }
+        print("UUID: \(peripheral.identifier.uuidString)")
+        print("RSSI: \(RSSI)")
+        print("Ad Data: \(advertisementData)")
+        print("------------------")
     }
     
     // For now, it gets randomly generated count rates instead of getting it from Bluetooth
