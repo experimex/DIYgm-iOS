@@ -49,9 +49,6 @@
                                         <rect key="frame" x="0.0" y="103" width="245" height="48"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                         <state key="normal" title="Bluetooth Mapping"/>
-                                        <connections>
-                                            <segue destination="dUJ-jQ-GwD" kind="show" id="8mx-fa-83r"/>
-                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -65,8 +62,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="Cdv-VF-wfv"/>
                     <connections>
+                        <outlet property="bluetoothButton" destination="chh-ke-hu6" id="dI2-1s-Zwv"/>
                         <outlet property="manualButton" destination="TiZ-EC-78c" id="A2U-wF-DfP"/>
-                        <segue destination="dUJ-jQ-GwD" kind="show" id="Lgt-Cp-zzr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SJ9-5E-ZiC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -105,7 +102,4 @@
             <point key="canvasLocation" x="1652" y="549"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="8mx-fa-83r"/>
-    </inferredMetricsTieBreakers>
 </document>

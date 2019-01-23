@@ -15,6 +15,9 @@ class HomeViewController: UIViewController {
     // uses viewDidAppear(), which would occur too late in ManualViewController.
     
     @IBOutlet weak var manualButton: UIButton!
+    @IBOutlet weak var bluetoothButton: UIButton!
+    
+    
     let initialTextField = UITextField(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
     var keyboardHeight: CGFloat?
     
@@ -31,6 +34,7 @@ class HomeViewController: UIViewController {
         self.view.addSubview(initialTextField)
         
         manualButton.addTarget(self, action: #selector(goToManual(_:)), for: .touchUpInside)
+        bluetoothButton.addTarget(self, action: #selector(goToBluetooth(_:)), for: .touchUpInside)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -54,6 +58,11 @@ class HomeViewController: UIViewController {
     @objc func goToManual(_ sender: UIButton) {
         let vc = ManualViewController()
         vc.keyboardHeight = keyboardHeight
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc func goToBluetooth(_ sender: UIButton) {
+        let vc = BluetoothViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
     
