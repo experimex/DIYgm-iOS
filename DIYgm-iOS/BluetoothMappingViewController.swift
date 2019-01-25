@@ -1,5 +1,5 @@
 //
-//  BluetoothViewController.swift
+//  BluetoothMappingViewController.swift
 //  DIYgm-iOS
 //
 //  Created by Li, Max on 1/23/19.
@@ -11,7 +11,7 @@ import UIKit
 import GoogleMaps
 import CoreBluetooth
 
-class BluetoothViewController: UIViewController, CBCentralManagerDelegate {
+class BluetoothMappingViewController: UIViewController {
     
     // Objects declared here for global use
     var navView: UIView?
@@ -20,10 +20,8 @@ class BluetoothViewController: UIViewController, CBCentralManagerDelegate {
     var popupToolsView: UIView?
     var countLabel: UILabel?
     
-    var centralManager: CBCentralManager?
-    
     var markerCount: Int = 0
-    var markers: Array<GMSMarker> = Array()
+    var markers: [GMSMarker] = []
     var popupToolsHidden = true
     
     override func viewDidLoad() {
@@ -31,8 +29,6 @@ class BluetoothViewController: UIViewController, CBCentralManagerDelegate {
         
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 0.976, green: 0.976, blue: 0.976, alpha: 1.0)
         self.navigationController?.navigationBar.isTranslucent = false
-        
-        centralManager = CBCentralManager(delegate: self, queue: nil)
         
         // Map view
         let camera = GMSCameraPosition.camera(withLatitude: 42.276347, longitude: -83.736247, zoom: 2.0)
@@ -110,29 +106,6 @@ class BluetoothViewController: UIViewController, CBCentralManagerDelegate {
         exportDataButton.titleLabel?.font = exportDataButton.titleLabel?.font.withSize(24)
         exportDataButton.addTarget(self, action: #selector(exportData(_:)), for: .touchUpInside)
         popupToolsView?.addSubview(exportDataButton)
-    }
-    
-    func centralManagerDidUpdateState(_ central: CBCentralManager) {
-        if central.state == .poweredOn {
-            central.scanForPeripherals(withServices: nil, options: nil)
-            
-        } else {
-            let alertVC = UIAlertController(title: "Bluetooth isn't working", message: "Make sure your Bluetooth is on.", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "Ok", style: .default, handler: { (action) in alertVC.dismiss(animated: true, completion: nil) })
-            alertVC.addAction(okAction)
-            present(alertVC, animated: true, completion: nil)
-        }
-    }
-    
-    func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        
-        if let name = peripheral.name {
-            print("Name: \(name)")
-        }
-        print("UUID: \(peripheral.identifier.uuidString)")
-        print("RSSI: \(RSSI)")
-        print("Ad Data: \(advertisementData)")
-        print("------------------")
     }
     
     // For now, it gets randomly generated count rates instead of getting it from Bluetooth
