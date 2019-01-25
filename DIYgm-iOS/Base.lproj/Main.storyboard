@@ -71,35 +71,5 @@
             </objects>
             <point key="canvasLocation" x="836" y="-205"/>
         </scene>
-        <!--Manual View Controller-->
-        <scene sceneID="dri-Pq-Zws">
-            <objects>
-                <viewController id="jfk-8o-gUi" customClass="ManualViewController" customModule="DIYgm_iOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="4jU-TC-7q8">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="rna-SS-YuE"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="cjv-FR-aHQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1652" y="-206.44677661169416"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="ram-4Q-ZX5">
-            <objects>
-                <viewController id="dUJ-jQ-GwD" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="4Xc-vY-3by">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="DC5-n3-gJg"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="xhE-ru-l6X" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1652" y="549"/>
-        </scene>
     </scenes>
 </document>
