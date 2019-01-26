@@ -29,6 +29,7 @@ class ManualViewController: UIViewController {
         
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 0.976, green: 0.976, blue: 0.976, alpha: 1.0)
         self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationItem.title = "Manual Mapping"
         
         // Map view
         let camera = GMSCameraPosition.camera(withLatitude: 42.276347, longitude: -83.736247, zoom: 2.0)
@@ -117,7 +118,7 @@ class ManualViewController: UIViewController {
             marker.snippet = countField!.text
             
             // Marker's color saturation is based on count rate
-            let highValue: CGFloat = 100.0
+            let highValue: CGFloat = 1000.0
             let sat = CGFloat(Int(countField!.text!)!) / highValue
             marker.icon = GMSMarker.markerImage(with: UIColor(hue: 0.0, saturation: sat, brightness: 1.0, alpha: 1.0))
             
