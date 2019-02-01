@@ -10,14 +10,19 @@ import Foundation
 import UIKit
 import CoreBluetooth
 
-class BluetoothConnectionViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CBCentralManagerDelegate {
+class BluetoothConnectionViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CBCentralManagerDelegate, CBPeripheralDelegate {
     
-    var tableView: UITableView!
+    var tableView: UITableView?
     
-    var centralManager: CBCentralManager!
+    var centralManager: CBCentralManager?
+    var diygm: CBPeripheral?
     
+    var peripherals: [CBPeripheral] = []
     var names: [String] = []
     var RSSIs: [NSNumber] = []
+    
+    let serviceCBUUID = CBUUID(string: "6f1a48fb-a2bc-4b96-9819-ce7d6a68609d")
+    let characteristicCBUUID = CBUUID(string: "6f1a48fb-a2bc-4b96-9819-ce7d6a68609d")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +52,9 @@ class BluetoothConnectionViewController: UIViewController, UITableViewDelegate, 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Selected \(names[indexPath.row])")
+        diygm = peripherals[indexPath.row]
+        diygm!.delegate = self
+        centralManager!.connect(diygm!)
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -65,32 +73,73 @@ class BluetoothConnectionViewController: UIViewController, UITableViewDelegate, 
     }
     
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
-        if central.state == .poweredOn {
+        switch central.state {
+        case .unknown:
+            showBluetoothAlert(message: "Unknown cause")
+        case .resetting:
+            showBluetoothAlert(message: "Bluetooth is resetting. Try again.")
+        case .unsupported:
+            showBluetoothAlert(message: "This app does not support the version of Bluetooth on your device.")
+        case .unauthorized:
+            showBluetoothAlert(message: "You need to allow this app to use Bluetooth.")
+        case .poweredOff:
+            showBluetoothAlert(message: "Make sure Bluetooth is turned on.")
+        case .poweredOn:
             central.scanForPeripherals(withServices: nil, options: nil)
-            
-        } else {
-            let alertVC = UIAlertController(title: "Bluetooth isn't working", message: "Make sure your Bluetooth is on.", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "Ok", style: .default, handler: { (action) in alertVC.dismiss(animated: true, completion: nil) })
-            alertVC.addAction(okAction)
-            present(alertVC, animated: true, completion: nil)
         }
+    }
+    
+    func showBluetoothAlert(message: String) {
+        let alertVC = UIAlertController(title: "Bluetooth isn't working", message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default, handler: { (action) in alertVC.dismiss(animated: true, completion: nil) })
+        alertVC.addAction(okAction)
+        present(alertVC, animated: true, completion: nil)
     }
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         
+        peripherals.append(peripheral)
         if let name = peripheral.name {
             names.append(name)
+            print("Name: \(name)")
         } else {
             names.append(peripheral.identifier.uuidString)
         }
         RSSIs.append(RSSI)
         
         print("UUID: \(peripheral.identifier.uuidString)")
-        print("RSSI: \(RSSI)")
         print("Ad Data: \(advertisementData)")
         print("------------------")
         
         tableView!.reloadData()
     }
     
+    func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
+        print("Connected!")
+        
+        diygm!.discoverServices(nil)
+    }
+    
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
+        guard let services = peripheral.services else { return }
+        
+        for service in services {
+            print(service)
+            diygm!.discoverCharacteristics(nil, for: service)
+        }
+    }
+
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
+        guard let characteristics = service.characteristics else { return }
+        
+        for characteristic in characteristics {
+            print(characteristic)
+            if characteristic.properties.contains(.read) {
+                print("\(characteristic.uuid): properties contains .read") //lets you directly read
+            }
+            if characteristic.properties.contains(.notify) {
+                print("\(characteristic.uuid): properties contains .notify") //must notify you
+            }
+        }
+    }
 }
