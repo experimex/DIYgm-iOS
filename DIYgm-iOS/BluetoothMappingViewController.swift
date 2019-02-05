@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 import GoogleMaps
-import CoreBluetooth
 
 class BluetoothMappingViewController: UIViewController {
     

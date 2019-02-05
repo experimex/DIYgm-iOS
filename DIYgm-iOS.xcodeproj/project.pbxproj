@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		42AA13FB7A5D53E58173710F /* Pods_DIYgm_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E5A7F117C9DDCD4C1723255 /* Pods_DIYgm_iOSTests.framework */; };
+		47F570A257B17BC616EFD500 /* Pods_DIYgm_iOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD6A8A6ADC903EAFD1C58CBC /* Pods_DIYgm_iOSUITests.framework */; };
 		4B56999A219E1EF00045DF83 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4B569999219E1EF00045DF83 /* Keys.plist */; };
 		4B6B32E721A394720071E4D7 /* ManualViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6B32E621A394720071E4D7 /* ManualViewController.swift */; };
 		4B7D30E9218BA45E00E94803 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7D30E8218BA45E00E94803 /* AppDelegate.swift */; };
@@ -38,7 +40,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1774E16A80B1A70091346068 /* Pods-DIYgm-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DIYgm-iOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DIYgm-iOSTests/Pods-DIYgm-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		0E5A7F117C9DDCD4C1723255 /* Pods_DIYgm_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DIYgm_iOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1C0C855DFEEF56B7F8834635 /* Pods_DIYgm_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DIYgm_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		489292F135D2B01C8B2F2C8F /* Pods-DIYgm-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DIYgm-iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DIYgm-iOS/Pods-DIYgm-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		4B569999219E1EF00045DF83 /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		4B6B32E621A394720071E4D7 /* ManualViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualViewController.swift; sourceTree = "<group>"; };
 		4B7D30E5218BA45E00E94803 /* DIYgm-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DIYgm-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -56,11 +60,14 @@
 		4BC405F421AF45F600B6434A /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		4BC4079021F8FA5A00B6434A /* BluetoothMappingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothMappingViewController.swift; sourceTree = "<group>"; };
 		4BC4079221FBBB0F00B6434A /* BluetoothConnectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothConnectionViewController.swift; sourceTree = "<group>"; };
-		61D0754F5C9EE530E59DFCCA /* Pods-DIYgm-iOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DIYgm-iOSUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DIYgm-iOSUITests/Pods-DIYgm-iOSUITests.release.xcconfig"; sourceTree = "<group>"; };
-		6B0BD64873D59F22F8223C9B /* Pods-DIYgm-iOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DIYgm-iOSUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DIYgm-iOSUITests/Pods-DIYgm-iOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		A90CAA8BFF090511A68EFA19 /* Pods-DIYgm-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DIYgm-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-DIYgm-iOS/Pods-DIYgm-iOS.release.xcconfig"; sourceTree = "<group>"; };
-		D641F9931EB7C31182ACF59E /* Pods-DIYgm-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DIYgm-iOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DIYgm-iOSTests/Pods-DIYgm-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
-		ECDF7F2211E711000E8237BD /* Pods-DIYgm-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DIYgm-iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DIYgm-iOS/Pods-DIYgm-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		4BDCB8E22209333200CE35EA /* CocoaMQTT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CocoaMQTT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4BDCB8E42209333800CE35EA /* CocoaAsyncSocket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CocoaAsyncSocket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		71500F63CBD9BF7F381C0450 /* Pods-DIYgm-iOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DIYgm-iOSUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DIYgm-iOSUITests/Pods-DIYgm-iOSUITests.release.xcconfig"; sourceTree = "<group>"; };
+		A5FCC1622B4400CFB63F1624 /* Pods-DIYgm-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DIYgm-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-DIYgm-iOS/Pods-DIYgm-iOS.release.xcconfig"; sourceTree = "<group>"; };
+		A80720C8EF8592BBCBB2E436 /* Pods-DIYgm-iOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DIYgm-iOSUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DIYgm-iOSUITests/Pods-DIYgm-iOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		B4D823C3693F57A54AB02F07 /* Pods-DIYgm-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DIYgm-iOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DIYgm-iOSTests/Pods-DIYgm-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		CD6A8A6ADC903EAFD1C58CBC /* Pods_DIYgm_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DIYgm_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EDD18F2CD9F668F912A8B16B /* Pods-DIYgm-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DIYgm-iOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DIYgm-iOSTests/Pods-DIYgm-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42AA13FB7A5D53E58173710F /* Pods_DIYgm_iOSTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,17 +90,24 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47F570A257B17BC616EFD500 /* Pods_DIYgm_iOSUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		016D9514FDB0D6950D4923EE /* Frameworks */ = {
+		0200821B28212B3E26CCA42C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
+				489292F135D2B01C8B2F2C8F /* Pods-DIYgm-iOS.debug.xcconfig */,
+				A5FCC1622B4400CFB63F1624 /* Pods-DIYgm-iOS.release.xcconfig */,
+				EDD18F2CD9F668F912A8B16B /* Pods-DIYgm-iOSTests.debug.xcconfig */,
+				B4D823C3693F57A54AB02F07 /* Pods-DIYgm-iOSTests.release.xcconfig */,
+				A80720C8EF8592BBCBB2E436 /* Pods-DIYgm-iOSUITests.debug.xcconfig */,
+				71500F63CBD9BF7F381C0450 /* Pods-DIYgm-iOSUITests.release.xcconfig */,
 			);
-			name = Frameworks;
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		4B7D30DC218BA45E00E94803 = {
@@ -102,8 +117,8 @@
 				4B7D30FC218BA46600E94803 /* DIYgm-iOSTests */,
 				4B7D3107218BA46600E94803 /* DIYgm-iOSUITests */,
 				4B7D30E6218BA45E00E94803 /* Products */,
-				B576E6003B0938E478F5F053 /* Pods */,
-				016D9514FDB0D6950D4923EE /* Frameworks */,
+				682CFD07BF6471C5B6F7E495 /* Frameworks */,
+				0200821B28212B3E26CCA42C /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -152,17 +167,16 @@
 			path = "DIYgm-iOSUITests";
 			sourceTree = "<group>";
 		};
-		B576E6003B0938E478F5F053 /* Pods */ = {
+		682CFD07BF6471C5B6F7E495 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				ECDF7F2211E711000E8237BD /* Pods-DIYgm-iOS.debug.xcconfig */,
-				A90CAA8BFF090511A68EFA19 /* Pods-DIYgm-iOS.release.xcconfig */,
-				1774E16A80B1A70091346068 /* Pods-DIYgm-iOSTests.debug.xcconfig */,
-				D641F9931EB7C31182ACF59E /* Pods-DIYgm-iOSTests.release.xcconfig */,
-				6B0BD64873D59F22F8223C9B /* Pods-DIYgm-iOSUITests.debug.xcconfig */,
-				61D0754F5C9EE530E59DFCCA /* Pods-DIYgm-iOSUITests.release.xcconfig */,
+				4BDCB8E42209333800CE35EA /* CocoaAsyncSocket.framework */,
+				4BDCB8E22209333200CE35EA /* CocoaMQTT.framework */,
+				1C0C855DFEEF56B7F8834635 /* Pods_DIYgm_iOS.framework */,
+				0E5A7F117C9DDCD4C1723255 /* Pods_DIYgm_iOSTests.framework */,
+				CD6A8A6ADC903EAFD1C58CBC /* Pods_DIYgm_iOSUITests.framework */,
 			);
-			name = Pods;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -172,11 +186,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4B7D310D218BA46600E94803 /* Build configuration list for PBXNativeTarget "DIYgm-iOS" */;
 			buildPhases = (
-				B99EB56B4498CE032614ABED /* [CP] Check Pods Manifest.lock */,
+				A327F7AFC9EE371AD19DDE23 /* [CP] Check Pods Manifest.lock */,
 				4B7D30E1218BA45E00E94803 /* Sources */,
 				4B7D30E2218BA45E00E94803 /* Frameworks */,
 				4B7D30E3218BA45E00E94803 /* Resources */,
-				410C19503A7DB57FD7FE7798 /* [CP] Copy Pods Resources */,
+				D20E581D044CBE191CAC1582 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -191,7 +205,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4B7D3110218BA46600E94803 /* Build configuration list for PBXNativeTarget "DIYgm-iOSTests" */;
 			buildPhases = (
-				44AAA7A0081807B3F6484C8E /* [CP] Check Pods Manifest.lock */,
+				34F36040198E027C1AB6DEA2 /* [CP] Check Pods Manifest.lock */,
 				4B7D30F5218BA46600E94803 /* Sources */,
 				4B7D30F6218BA46600E94803 /* Frameworks */,
 				4B7D30F7218BA46600E94803 /* Resources */,
@@ -210,7 +224,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4B7D3113218BA46600E94803 /* Build configuration list for PBXNativeTarget "DIYgm-iOSUITests" */;
 			buildPhases = (
-				C8E994068F20002708C4AD80 /* [CP] Check Pods Manifest.lock */,
+				EDAB7150C9195DAEE10F8AE3 /* [CP] Check Pods Manifest.lock */,
 				4B7D3100218BA46600E94803 /* Sources */,
 				4B7D3101218BA46600E94803 /* Frameworks */,
 				4B7D3102218BA46600E94803 /* Resources */,
@@ -297,31 +311,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		410C19503A7DB57FD7FE7798 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-DIYgm-iOS/Pods-DIYgm-iOS-resources.sh",
-				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
-				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DIYgm-iOS/Pods-DIYgm-iOS-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		44AAA7A0081807B3F6484C8E /* [CP] Check Pods Manifest.lock */ = {
+		34F36040198E027C1AB6DEA2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -343,7 +333,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B99EB56B4498CE032614ABED /* [CP] Check Pods Manifest.lock */ = {
+		A327F7AFC9EE371AD19DDE23 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -365,7 +355,29 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C8E994068F20002708C4AD80 /* [CP] Check Pods Manifest.lock */ = {
+		D20E581D044CBE191CAC1582 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-DIYgm-iOS/Pods-DIYgm-iOS-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DIYgm-iOS/Pods-DIYgm-iOS-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EDAB7150C9195DAEE10F8AE3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -571,16 +583,20 @@
 		};
 		4B7D310E218BA46600E94803 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = ECDF7F2211E711000E8237BD /* Pods-DIYgm-iOS.debug.xcconfig */;
+			baseConfigurationReference = 489292F135D2B01C8B2F2C8F /* Pods-DIYgm-iOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$";
+				CONFIGURATION_TEMP_DIR = "$(PROJECT_TEMP_DIR)/$(CONFIGURATION)$";
 				DEVELOPMENT_TEAM = D2273Z43T2;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"${PODS_ROOT}/GoogleMaps/Base/Frameworks\"",
-					"\"${PODS_ROOT}/GoogleMaps/Maps/Frameworks\"",
-					"\"${PODS_ROOT}/GooglePlaces/Frameworks\"",
+					"$(PRODUCT_DIR)",
+				);
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = (
+					"$(inherited)",
+					"$(PRODUCT_DIR)",
 				);
 				HEADER_SEARCH_PATHS = "\"${PODS_ROOT}/Headers\"";
 				INFOPLIST_FILE = "DIYgm-iOS/Info.plist";
@@ -601,17 +617,14 @@
 		};
 		4B7D310F218BA46600E94803 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A90CAA8BFF090511A68EFA19 /* Pods-DIYgm-iOS.release.xcconfig */;
+			baseConfigurationReference = A5FCC1622B4400CFB63F1624 /* Pods-DIYgm-iOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$";
+				CONFIGURATION_TEMP_DIR = "$(PROJECT_TEMP_DIR)/$(CONFIGURATION)$";
 				DEVELOPMENT_TEAM = D2273Z43T2;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"${PODS_ROOT}/GoogleMaps/Base/Frameworks\"",
-					"\"${PODS_ROOT}/GoogleMaps/Maps/Frameworks\"",
-					"\"${PODS_ROOT}/GooglePlaces/Frameworks\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "";
 				HEADER_SEARCH_PATHS = "\"${PODS_ROOT}/Headers\"";
 				INFOPLIST_FILE = "DIYgm-iOS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
@@ -631,7 +644,7 @@
 		};
 		4B7D3111218BA46600E94803 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1774E16A80B1A70091346068 /* Pods-DIYgm-iOSTests.debug.xcconfig */;
+			baseConfigurationReference = EDD18F2CD9F668F912A8B16B /* Pods-DIYgm-iOSTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -652,7 +665,7 @@
 		};
 		4B7D3112218BA46600E94803 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D641F9931EB7C31182ACF59E /* Pods-DIYgm-iOSTests.release.xcconfig */;
+			baseConfigurationReference = B4D823C3693F57A54AB02F07 /* Pods-DIYgm-iOSTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -673,7 +686,7 @@
 		};
 		4B7D3114218BA46600E94803 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6B0BD64873D59F22F8223C9B /* Pods-DIYgm-iOSUITests.debug.xcconfig */;
+			baseConfigurationReference = A80720C8EF8592BBCBB2E436 /* Pods-DIYgm-iOSUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -693,7 +706,7 @@
 		};
 		4B7D3115218BA46600E94803 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 61D0754F5C9EE530E59DFCCA /* Pods-DIYgm-iOSUITests.release.xcconfig */;
+			baseConfigurationReference = 71500F63CBD9BF7F381C0450 /* Pods-DIYgm-iOSUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
