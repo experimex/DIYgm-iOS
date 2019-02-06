@@ -2,8 +2,8 @@
 //  DIYgm_iOSUITests.swift
 //  DIYgm-iOSUITests
 //
-//  Created by Li, Max on 11/1/18.
-//  Copyright © 2018 DIYgm. All rights reserved.
+//  Created by Li, Max on 2/6/19.
+//  Copyright © 2019 Li, Max. All rights reserved.
 //
 
 import XCTest

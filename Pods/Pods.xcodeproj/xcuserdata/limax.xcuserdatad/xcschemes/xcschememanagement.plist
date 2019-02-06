@@ -4,26 +4,40 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Pods-DIYgm-iOS.xcscheme</key>
+		<key>CocoaAsyncSocket.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
-		<key>Pods-DIYgm-iOSTests.xcscheme</key>
+		<key>CocoaMQTT.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
-		<key>Pods-DIYgm-iOSUITests.xcscheme</key>
+		<key>Pods-DIYgm-iOS.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
 			<integer>2</integer>
+		</dict>
+		<key>Pods-DIYgm-iOSTests.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
+		<key>Pods-DIYgm-iOSUITests.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>4</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>

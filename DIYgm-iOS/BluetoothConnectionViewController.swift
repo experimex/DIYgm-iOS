@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-//import CocoaMQTT
+import CocoaMQTT
 
 class BluetoothConnectionViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -17,7 +17,7 @@ class BluetoothConnectionViewController: UIViewController, UITableViewDelegate, 
     var names: [String] = []
     var RSSIs: [NSNumber] = []
     
-    //let mqttClient = CocoaMQTT(clientID: "iOS Device", host: "192.168.0.X", port: 1883)
+    let mqttClient = CocoaMQTT(clientID: "iOS Device", host: "192.168.0.X", port: 1883)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +36,7 @@ class BluetoothConnectionViewController: UIViewController, UITableViewDelegate, 
     
     @objc func refresh(_ sender: UIButton) {
         print("Refresh")
-        
+        print(mqttClient.host)
         tableView!.reloadData()
     }
     
