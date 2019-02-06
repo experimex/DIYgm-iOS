@@ -8,16 +8,21 @@
 
 import Foundation
 import UIKit
-import CocoaMQTT
+import CoreBluetooth
 
-class BluetoothConnectionViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class BluetoothConnectionViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CBCentralManagerDelegate, CBPeripheralDelegate {
     
     var tableView: UITableView?
     
+    var centralManager: CBCentralManager?
+    var diygm: CBPeripheral?
+    
+    var peripherals: [CBPeripheral] = []
     var names: [String] = []
     var RSSIs: [NSNumber] = []
     
-    let mqttClient = CocoaMQTT(clientID: "iOS Device", host: "192.168.0.X", port: 1883)
+    let serviceCBUUID = CBUUID(string: "ec00")
+    let characteristicCBUUID = CBUUID(string: "ec00")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,27 +37,33 @@ class BluetoothConnectionViewController: UIViewController, UITableViewDelegate, 
         tableView!.delegate = self
         self.view!.addSubview(tableView!)
         
+        centralManager = CBCentralManager(delegate: self, queue: nil)
+        
     }
     
     @objc func refresh(_ sender: UIButton) {
         print("Refresh")
-        print(mqttClient.host)
+        names = []
+        RSSIs = []
         tableView!.reloadData()
+        centralManager!.stopScan()
+        centralManager!.scanForPeripherals(withServices: [serviceCBUUID], options: nil)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Selected \(names[indexPath.row])")
-        
-        print("------------------")
+        diygm = peripherals[indexPath.row]
+        diygm!.delegate = self
+        centralManager!.connect(diygm!)
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return names.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tableCell", for: indexPath as IndexPath)
-        //cell.textLabel!.text =
+        cell.textLabel!.text = "\(names[indexPath.row])\n\(RSSIs[indexPath.row])"
         cell.textLabel!.font = cell.textLabel!.font.withSize(19)
         cell.textLabel!.numberOfLines = 2
         cell.preservesSuperviewLayoutMargins = false
@@ -61,4 +72,74 @@ class BluetoothConnectionViewController: UIViewController, UITableViewDelegate, 
         return cell
     }
     
+    func centralManagerDidUpdateState(_ central: CBCentralManager) {
+        switch central.state {
+        case .unknown:
+            showBluetoothAlert(message: "Unknown cause")
+        case .resetting:
+            showBluetoothAlert(message: "Bluetooth is resetting. Try again.")
+        case .unsupported:
+            showBluetoothAlert(message: "This app does not support the version of Bluetooth on your device.")
+        case .unauthorized:
+            showBluetoothAlert(message: "You need to allow this app to use Bluetooth.")
+        case .poweredOff:
+            showBluetoothAlert(message: "Make sure Bluetooth is turned on.")
+        case .poweredOn:
+            central.scanForPeripherals(withServices: [serviceCBUUID], options: nil)
+        }
+    }
+    
+    func showBluetoothAlert(message: String) {
+        let alertVC = UIAlertController(title: "Bluetooth isn't working", message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default, handler: { (action) in alertVC.dismiss(animated: true, completion: nil) })
+        alertVC.addAction(okAction)
+        present(alertVC, animated: true, completion: nil)
+    }
+    
+    func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
+        
+        peripherals.append(peripheral)
+        if let name = peripheral.name {
+            names.append(name)
+            print("Name: \(name)")
+        } else {
+            names.append(peripheral.identifier.uuidString)
+        }
+        RSSIs.append(RSSI)
+        
+        print("UUID: \(peripheral.identifier.uuidString)")
+        print("Ad Data: \(advertisementData)")
+        print("------------------")
+        
+        tableView!.reloadData()
+    }
+    
+    func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
+        print("Connected!")
+        
+        diygm!.discoverServices(nil)
+    }
+    
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
+        guard let services = peripheral.services else { return }
+        
+        for service in services {
+            print(service)
+            diygm!.discoverCharacteristics(nil, for: service)
+        }
+    }
+    
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
+        guard let characteristics = service.characteristics else { return }
+        
+        for characteristic in characteristics {
+            print(characteristic)
+            if characteristic.properties.contains(.read) {
+                print("\(characteristic.uuid): properties contains .read") //lets you directly read
+            }
+            if characteristic.properties.contains(.notify) {
+                print("\(characteristic.uuid): properties contains .notify") //must notify you
+            }
+        }
+    }
 }

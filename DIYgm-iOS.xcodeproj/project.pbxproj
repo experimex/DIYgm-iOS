@@ -183,7 +183,6 @@
 				4B22A09E220B6F410084C1A3 /* Frameworks */,
 				4B22A09F220B6F410084C1A3 /* Resources */,
 				D9ABB9345E2858C038E99D02 /* [CP] Copy Pods Resources */,
-				701941874F217567C1C2793A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -302,30 +301,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		701941874F217567C1C2793A /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-DIYgm-iOS/Pods-DIYgm-iOS-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/CocoaAsyncSocket/CocoaAsyncSocket.framework",
-				"${BUILT_PRODUCTS_DIR}/CocoaMQTT/CocoaMQTT.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaAsyncSocket.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaMQTT.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DIYgm-iOS/Pods-DIYgm-iOS-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		9A9FA68724A55175B7B94A5A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

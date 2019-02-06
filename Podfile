@@ -5,7 +5,6 @@ target 'DIYgm-iOS' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
   pod 'GoogleMaps'
-  pod 'CocoaMQTT'
 
   target 'DIYgm-iOSTests' do
     inherit! :search_paths

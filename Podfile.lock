@@ -1,7 +1,4 @@
 PODS:
-  - CocoaAsyncSocket (7.6.3)
-  - CocoaMQTT (1.1.3):
-    - CocoaAsyncSocket (~> 7.6.3)
   - GoogleMaps (2.7.0):
     - GoogleMaps/Maps (= 2.7.0)
   - GoogleMaps/Base (2.7.0)
@@ -9,20 +6,15 @@ PODS:
     - GoogleMaps/Base
 
 DEPENDENCIES:
-  - CocoaMQTT
   - GoogleMaps
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
-    - CocoaAsyncSocket
-    - CocoaMQTT
     - GoogleMaps
 
 SPEC CHECKSUMS:
-  CocoaAsyncSocket: eafaa68a7e0ec99ead0a7b35015e0bf25d2c8987
-  CocoaMQTT: b506d38ad3bbe1c55a4f8ee8c9fd02c35da1a7d8
   GoogleMaps: f79af95cb24d869457b1f961c93d3ce8b2f3b848
 
-PODFILE CHECKSUM: e1b45c225299b9b6e499a6a5c2165f748422fa6f
+PODFILE CHECKSUM: b6c1779eab10f4a68f1cd484d59ac653a1e3fae4
 
 COCOAPODS: 1.5.3
