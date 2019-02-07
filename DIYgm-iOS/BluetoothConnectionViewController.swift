@@ -17,6 +17,8 @@ class BluetoothConnectionViewController: UIViewController, UITableViewDelegate, 
     var centralManager: CBCentralManager?
     var diygm: CBPeripheral?
     
+    var countRate: Int?
+    
     var peripherals: [CBPeripheral] = []
     var names: [String] = []
     var RSSIs: [NSNumber] = []
@@ -133,13 +135,13 @@ class BluetoothConnectionViewController: UIViewController, UITableViewDelegate, 
         guard let characteristics = service.characteristics else { return }
         
         for characteristic in characteristics {
-            print(characteristic)
-            if characteristic.properties.contains(.read) {
-                print("\(characteristic.uuid): properties contains .read") //lets you directly read
-            }
-            if characteristic.properties.contains(.notify) {
-                print("\(characteristic.uuid): properties contains .notify") //must notify you
-            }
+            peripheral.setNotifyValue(true, for: characteristic)
         }
+    }
+    
+    func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
+        
+        countRate = Int(String(data: characteristic.value!, encoding: String.Encoding.utf8)!)
+        print(countRate!)
     }
 }

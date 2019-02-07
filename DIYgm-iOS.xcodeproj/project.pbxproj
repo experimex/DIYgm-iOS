@@ -18,6 +18,8 @@
 		4B22A0DE220B6FC40084C1A3 /* ManualViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B22A0D6220B6FC30084C1A3 /* ManualViewController.swift */; };
 		4B22A0DF220B6FC40084C1A3 /* BluetoothConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B22A0D7220B6FC40084C1A3 /* BluetoothConnectionViewController.swift */; };
 		4B22A0E0220B6FC40084C1A3 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4B22A0D8220B6FC40084C1A3 /* Keys.plist */; };
+		4B455CD7220CD6FE001041A2 /* Pods_DIYgm_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 840570306CF649F9E5CEC32F /* Pods_DIYgm_iOS.framework */; };
+		4B455CD8220CD6FE001041A2 /* Pods_DIYgm_iOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 840570306CF649F9E5CEC32F /* Pods_DIYgm_iOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C13EC5FA47D86898EC1425A3 /* Pods_DIYgm_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 840570306CF649F9E5CEC32F /* Pods_DIYgm_iOS.framework */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +39,20 @@
 			remoteInfo = "DIYgm-iOS";
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4B455CD9220CD6FE001041A2 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4B455CD8220CD6FE001041A2 /* Pods_DIYgm_iOS.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		243E81C051F10DA066A473FC /* Pods_DIYgm_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DIYgm_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -71,6 +87,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C13EC5FA47D86898EC1425A3 /* Pods_DIYgm_iOS.framework in Frameworks */,
+				4B455CD7220CD6FE001041A2 /* Pods_DIYgm_iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -183,6 +200,7 @@
 				4B22A09E220B6F410084C1A3 /* Frameworks */,
 				4B22A09F220B6F410084C1A3 /* Resources */,
 				D9ABB9345E2858C038E99D02 /* [CP] Copy Pods Resources */,
+				4B455CD9220CD6FE001041A2 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
