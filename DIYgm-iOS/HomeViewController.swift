@@ -62,7 +62,7 @@ class HomeViewController: UIViewController {
     }
     
     @objc func goToBluetooth(_ sender: UIButton) {
-        let vc = BluetoothConnectionViewController()
+        let vc = BluetoothViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
     

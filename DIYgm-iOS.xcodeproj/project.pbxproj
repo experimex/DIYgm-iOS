@@ -14,9 +14,8 @@
 		4B22A0BA220B6F440084C1A3 /* DIYgm_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B22A0B9220B6F440084C1A3 /* DIYgm_iOSTests.swift */; };
 		4B22A0C5220B6F440084C1A3 /* DIYgm_iOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B22A0C4220B6F440084C1A3 /* DIYgm_iOSUITests.swift */; };
 		4B22A0DC220B6FC40084C1A3 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B22A0D4220B6FC30084C1A3 /* HomeViewController.swift */; };
-		4B22A0DD220B6FC40084C1A3 /* BluetoothMappingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B22A0D5220B6FC30084C1A3 /* BluetoothMappingViewController.swift */; };
+		4B22A0DD220B6FC40084C1A3 /* BluetoothViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B22A0D5220B6FC30084C1A3 /* BluetoothViewController.swift */; };
 		4B22A0DE220B6FC40084C1A3 /* ManualViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B22A0D6220B6FC30084C1A3 /* ManualViewController.swift */; };
-		4B22A0DF220B6FC40084C1A3 /* BluetoothConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B22A0D7220B6FC40084C1A3 /* BluetoothConnectionViewController.swift */; };
 		4B22A0E0220B6FC40084C1A3 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4B22A0D8220B6FC40084C1A3 /* Keys.plist */; };
 		4B455CD7220CD6FE001041A2 /* Pods_DIYgm_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 840570306CF649F9E5CEC32F /* Pods_DIYgm_iOS.framework */; };
 		4B455CD8220CD6FE001041A2 /* Pods_DIYgm_iOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 840570306CF649F9E5CEC32F /* Pods_DIYgm_iOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -68,9 +67,8 @@
 		4B22A0C4220B6F440084C1A3 /* DIYgm_iOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIYgm_iOSUITests.swift; sourceTree = "<group>"; };
 		4B22A0C6220B6F440084C1A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4B22A0D4220B6FC30084C1A3 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		4B22A0D5220B6FC30084C1A3 /* BluetoothMappingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothMappingViewController.swift; sourceTree = "<group>"; };
+		4B22A0D5220B6FC30084C1A3 /* BluetoothViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothViewController.swift; sourceTree = "<group>"; };
 		4B22A0D6220B6FC30084C1A3 /* ManualViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManualViewController.swift; sourceTree = "<group>"; };
-		4B22A0D7220B6FC40084C1A3 /* BluetoothConnectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothConnectionViewController.swift; sourceTree = "<group>"; };
 		4B22A0D8220B6FC40084C1A3 /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		53859232522914DDB6B7278F /* Pods-DIYgm-iOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DIYgm-iOSUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DIYgm-iOSUITests/Pods-DIYgm-iOSUITests.release.xcconfig"; sourceTree = "<group>"; };
 		7D3038D8964CFC1CB1C94F19 /* Pods-DIYgm-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DIYgm-iOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DIYgm-iOSTests/Pods-DIYgm-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -151,8 +149,7 @@
 				4B22A0A4220B6F410084C1A3 /* AppDelegate.swift */,
 				4B22A0D4220B6FC30084C1A3 /* HomeViewController.swift */,
 				4B22A0D6220B6FC30084C1A3 /* ManualViewController.swift */,
-				4B22A0D7220B6FC40084C1A3 /* BluetoothConnectionViewController.swift */,
-				4B22A0D5220B6FC30084C1A3 /* BluetoothMappingViewController.swift */,
+				4B22A0D5220B6FC30084C1A3 /* BluetoothViewController.swift */,
 				4B22A0A8220B6F410084C1A3 /* Main.storyboard */,
 				4B22A0B0220B6F430084C1A3 /* Info.plist */,
 				4B22A0D8220B6FC40084C1A3 /* Keys.plist */,
@@ -414,8 +411,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B22A0DD220B6FC40084C1A3 /* BluetoothMappingViewController.swift in Sources */,
-				4B22A0DF220B6FC40084C1A3 /* BluetoothConnectionViewController.swift in Sources */,
+				4B22A0DD220B6FC40084C1A3 /* BluetoothViewController.swift in Sources */,
 				4B22A0A5220B6F410084C1A3 /* AppDelegate.swift in Sources */,
 				4B22A0DE220B6FC40084C1A3 /* ManualViewController.swift in Sources */,
 				4B22A0DC220B6FC40084C1A3 /* HomeViewController.swift in Sources */,

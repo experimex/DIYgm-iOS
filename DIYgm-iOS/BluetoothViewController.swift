@@ -1,5 +1,5 @@
 //
-//  BluetoothMappingViewController.swift
+//  BluetoothViewController.swift
 //  DIYgm-iOS
 //
 //  Created by Li, Max on 1/23/19.
@@ -9,16 +9,27 @@
 import Foundation
 import UIKit
 import GoogleMaps
+import CoreBluetooth
 
-class BluetoothMappingViewController: UIViewController {
+class BluetoothViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CBCentralManagerDelegate, CBPeripheralDelegate {
     
     // Objects declared here for global use
-    var navView: UIView?
+    var tableView: UITableView?
     var mapView: GMSMapView?
     var toolsView: UIView?
     var popupToolsView: UIView?
     var countLabel: UILabel?
+    var centralManager: CBCentralManager?
+    var diygm: CBPeripheral?
     
+    // Bluetooth
+    var peripherals: [CBPeripheral] = []
+    var names: [String] = []
+    var RSSIs: [NSNumber] = []
+    let serviceCBUUID = CBUUID(string: "ec00")
+    let characteristicCBUUID = CBUUID(string: "ec00")
+    
+    // Marker data
     var markerCount: Int = 0
     var markers: [GMSMarker] = []
     var popupToolsHidden = true
@@ -26,10 +37,17 @@ class BluetoothMappingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Bluetooth instantiation
+        centralManager = CBCentralManager(delegate: self, queue: nil)
+        
+        // Navigation controller instantiation
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 0.976, green: 0.976, blue: 0.976, alpha: 1.0)
         self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationItem.title = "Bluetooth Connection"
+        let refreshButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refresh(_:)))
+        self.navigationItem.rightBarButtonItem = refreshButton
         
-        // Map view
+        // Map view instantiation
         let camera = GMSCameraPosition.camera(withLatitude: 42.276347, longitude: -83.736247, zoom: 2.0)
         mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height - 200 - (navigationController?.navigationBar.frame.size.height)! - UIApplication.shared.statusBarFrame.height - 50), camera: camera)
         mapView?.isMyLocationEnabled = true
@@ -37,11 +55,12 @@ class BluetoothMappingViewController: UIViewController {
         mapView?.settings.compassButton = true
         self.view.addSubview(mapView!)
         
-        // Tools view
+        // Tools view instantiation
         let toolsRect = CGRect(x: 0, y: (mapView?.frame.size.height)!, width: self.view.frame.size.width, height: 250)
         toolsView = UIView(frame: toolsRect)
         toolsView?.backgroundColor = UIColor.white
         self.view.addSubview(toolsView!)
+        self.view.sendSubviewToBack(toolsView!)
         
         // Tools view: Button to set count rate
         let setButton = UIButton(type: UIButton.ButtonType.system)
@@ -75,7 +94,7 @@ class BluetoothMappingViewController: UIViewController {
         countLabel!.font = countLabel!.font?.withSize(100)
         toolsView?.addSubview(countLabel!)
         
-        // Popup tools view
+        // Popup tools view instantiation
         let popupToolsRect = CGRect(x: self.view.frame.size.width - 200, y: (mapView?.frame.size.height)!, width: 200, height: 130)
         popupToolsView = UIView(frame: popupToolsRect)
         popupToolsView!.backgroundColor = UIColor(red: 0.98, green: 0.98, blue: 0.98, alpha: 0.875)
@@ -105,13 +124,24 @@ class BluetoothMappingViewController: UIViewController {
         exportDataButton.titleLabel?.font = exportDataButton.titleLabel?.font.withSize(24)
         exportDataButton.addTarget(self, action: #selector(exportData(_:)), for: .touchUpInside)
         popupToolsView?.addSubview(exportDataButton)
+        
+        // Bluetooth device table view setup
+        tableView = UITableView(frame: CGRect(x: 0, y: (mapView?.frame.size.height)!, width: self.view.frame.size.width, height: 250))
+        tableView!.register(UITableViewCell.self, forCellReuseIdentifier: "tableCell")
+        tableView!.dataSource = self
+        tableView!.delegate = self
+        self.view!.addSubview(tableView!)
+        self.view!.bringSubviewToFront(tableView!)
     }
+
+}
+
+// Tool button functions
+extension BluetoothViewController {
     
-    // For now, it gets randomly generated count rates instead of getting it from Bluetooth
     @objc func setCountRate(_ sender: UIButton) {
-        countLabel!.text = String(Int.random(in: 0..<1000))
-        if (countLabel!.text == "") {
-            print("No count rate entered")
+        if (countLabel == nil) {
+            print("No count rate")
         }
         else if (mapView?.myLocation) == nil {
             print("Location unknown")
@@ -123,7 +153,7 @@ class BluetoothMappingViewController: UIViewController {
             marker.title = "Marker\(markerCount)"
             marker.snippet = countLabel!.text
             
-            //Marker's color saturation is based on count rate
+            // Marker's color saturation is based on count rate
             let highValue: CGFloat = 100.0
             let sat = CGFloat(Int(countLabel!.text!)!) / highValue
             marker.icon = GMSMarker.markerImage(with: UIColor(hue: 0.0, saturation: sat, brightness: 1.0, alpha: 1.0))
@@ -132,7 +162,7 @@ class BluetoothMappingViewController: UIViewController {
             markers.append(marker)
             markerCount += 1
             
-            //Go to marker
+            // Go to marker
             mapView!.animate(toLocation: currentLocation)
             
             print ("Recorded \(String(describing: marker.snippet)) at \(String(describing: marker.title))")
@@ -195,7 +225,7 @@ class BluetoothMappingViewController: UIViewController {
             do {
                 try csvText.write(to: path!, atomically: true, encoding: String.Encoding.utf8)
                 
-                let vc = UIActivityViewController(activityItems: [path], applicationActivities: [])
+                let vc = UIActivityViewController(activityItems: [path as Any], applicationActivities: [])
                 vc.excludedActivityTypes = [
                     UIActivity.ActivityType.assignToContact,
                     UIActivity.ActivityType.saveToCameraRoll,
@@ -217,6 +247,124 @@ class BluetoothMappingViewController: UIViewController {
             print("There is no data to export")
         }
         
+    }
+}
+
+// TableView functions
+extension BluetoothViewController {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("Selected \(names[indexPath.row])")
+        diygm = peripherals[indexPath.row]
+        diygm!.delegate = self
+        centralManager!.connect(diygm!)
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return names.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "tableCell", for: indexPath as IndexPath)
+        cell.textLabel!.text = "\(names[indexPath.row])\n\(RSSIs[indexPath.row])"
+        cell.textLabel!.font = cell.textLabel!.font.withSize(19)
+        cell.textLabel!.numberOfLines = 2
+        cell.preservesSuperviewLayoutMargins = false
+        cell.separatorInset = UIEdgeInsets.zero
+        cell.layoutMargins = UIEdgeInsets.zero
+        return cell
+    }
+}
+
+// Bluetooth functions
+extension BluetoothViewController {
+    
+    func centralManagerDidUpdateState(_ central: CBCentralManager) {
+        switch central.state {
+        case .unknown:
+            showBluetoothAlert(message: "Unknown cause")
+        case .resetting:
+            showBluetoothAlert(message: "Bluetooth is resetting. Try again.")
+        case .unsupported:
+            showBluetoothAlert(message: "This app does not support the version of Bluetooth on your device.")
+        case .unauthorized:
+            showBluetoothAlert(message: "You need to allow this app to use Bluetooth.")
+        case .poweredOff:
+            showBluetoothAlert(message: "Make sure Bluetooth is turned on.")
+        case .poweredOn:
+            central.scanForPeripherals(withServices: [serviceCBUUID], options: nil)
+        }
+    }
+    
+    func showBluetoothAlert(message: String) {
+        let alertVC = UIAlertController(title: "Bluetooth isn't working", message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default, handler: { (action) in alertVC.dismiss(animated: true, completion: nil) })
+        alertVC.addAction(okAction)
+        present(alertVC, animated: true, completion: nil)
+    }
+    
+    func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
+        
+        peripherals.append(peripheral)
+        if let name = peripheral.name {
+            names.append(name)
+            print("Name: \(name)")
+        } else {
+            names.append(peripheral.identifier.uuidString)
+        }
+        RSSIs.append(RSSI)
+        
+        print("UUID: \(peripheral.identifier.uuidString)")
+        print("Ad Data: \(advertisementData)")
+        print("------------------")
+        
+        tableView!.reloadData()
+    }
+    
+    func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
+        print("Connected!")
+        
+        diygm!.discoverServices(nil)
+        
+        
+    }
+    
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
+        guard let services = peripheral.services else { return }
+        
+        tableView?.isHidden = true
+        
+        for service in services {
+            print(service)
+            diygm!.discoverCharacteristics(nil, for: service)
+        }
+    }
+    
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
+        guard let characteristics = service.characteristics else { return }
+        
+        for characteristic in characteristics {
+            peripheral.setNotifyValue(true, for: characteristic)
+        }
+    }
+    
+    func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
+        
+        if let countRate = String(data: characteristic.value!, encoding: String.Encoding.utf8) {
+            
+            countLabel!.text = countRate
+            
+        }
+        
+    }
+    
+    @objc func refresh(_ sender: UIButton) {
+        print("Refresh")
+        names = []
+        RSSIs = []
+        tableView!.reloadData()
+        centralManager!.stopScan()
+        centralManager!.scanForPeripherals(withServices: [serviceCBUUID], options: nil)
     }
 }
 

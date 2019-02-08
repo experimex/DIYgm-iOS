@@ -190,7 +190,7 @@ class ManualViewController: UIViewController {
             do {
                 try csvText.write(to: path!, atomically: true, encoding: String.Encoding.utf8)
                 
-                let vc = UIActivityViewController(activityItems: [path], applicationActivities: [])
+                let vc = UIActivityViewController(activityItems: [path as Any], applicationActivities: [])
                 vc.excludedActivityTypes = [
                     UIActivity.ActivityType.assignToContact,
                     UIActivity.ActivityType.saveToCameraRoll,
