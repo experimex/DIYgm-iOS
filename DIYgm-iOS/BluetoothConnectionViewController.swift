@@ -40,7 +40,6 @@ class BluetoothConnectionViewController: UIViewController, UITableViewDelegate, 
         self.view!.addSubview(tableView!)
         
         centralManager = CBCentralManager(delegate: self, queue: nil)
-        
     }
     
     @objc func refresh(_ sender: UIButton) {
@@ -141,7 +140,10 @@ class BluetoothConnectionViewController: UIViewController, UITableViewDelegate, 
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         
-        countRate = Int(String(data: characteristic.value!, encoding: String.Encoding.utf8)!)
-        print(countRate!)
+        if let countRate = Int(String(data: characteristic.value!, encoding: String.Encoding.utf8)!) {
+            
+            print(countRate)
+        }
+        
     }
 }
