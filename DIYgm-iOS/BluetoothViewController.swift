@@ -17,8 +17,11 @@ class BluetoothViewController: UIViewController, UITableViewDelegate, UITableVie
     var tableView: UITableView?
     var mapView: GMSMapView?
     var toolsView: UIView?
+    var markButton: UIButton?
+    var disabledMarkLabel: UILabel?
     var popupToolsView: UIView?
     var countLabel: UILabel?
+    var autoMarkSwitch: UISwitch?
     var centralManager: CBCentralManager?
     var diygm: CBPeripheral?
     
@@ -62,19 +65,29 @@ class BluetoothViewController: UIViewController, UITableViewDelegate, UITableVie
         self.view.addSubview(toolsView!)
         self.view.sendSubviewToBack(toolsView!)
         
-        // Tools view: Button to set count rate
-        let setButton = UIButton(type: UIButton.ButtonType.system)
-        setButton.frame = CGRect(x: 100, y: 10, width: 60, height: 30)
-        setButton.setTitle("Set", for: .normal)
-        setButton.titleLabel?.font = setButton.titleLabel?.font.withSize(26)
-        setButton.addTarget(self, action: #selector(setCountRate(_:)), for: .touchUpInside)
-        toolsView?.addSubview(setButton)
+        // Tools view: Button to mark count rate
+        markButton = UIButton(type: UIButton.ButtonType.system)
+        markButton!.frame = CGRect(x: 0, y: 10, width: self.view.frame.size.width / 2, height: 30)
+        markButton!.setTitle("Mark", for: .normal)
+        markButton!.titleLabel?.font = markButton!.titleLabel?.font.withSize(26)
+        markButton!.titleLabel?.textAlignment = .center
+        markButton!.addTarget(self, action: #selector(markCountRate(_:)), for: .touchUpInside)
+        toolsView?.addSubview(markButton!)
+        
+        // Tools view: Label for disabled mark button
+        disabledMarkLabel = UILabel(frame: CGRect(x: 0, y: 10, width: self.view.frame.size.width / 2, height: 30))
+        disabledMarkLabel!.text = "Auto-Marking"
+        disabledMarkLabel!.textAlignment = .center
+        disabledMarkLabel!.font = disabledMarkLabel!.font?.withSize(18)
+        disabledMarkLabel!.isHidden = true
+        toolsView?.addSubview(disabledMarkLabel!)
         
         // Tools view: Button to show popup tools
         let showPopupButton = UIButton(type: UIButton.ButtonType.system)
-        showPopupButton.frame = CGRect(x: self.view.frame.size.width - 80, y: 10, width: 60, height: 30)
+        showPopupButton.frame = CGRect(x: self.view.frame.size.width / 2, y: 10, width: self.view.frame.size.width / 2, height: 30)
         showPopupButton.setTitle("Tools", for: .normal)
         showPopupButton.titleLabel?.font = showPopupButton.titleLabel?.font.withSize(26)
+        showPopupButton.titleLabel?.textAlignment = .center
         showPopupButton.addTarget(self, action: #selector(showPopupTools(_:)), for: .touchUpInside)
         toolsView?.addSubview(showPopupButton)
         
@@ -95,7 +108,7 @@ class BluetoothViewController: UIViewController, UITableViewDelegate, UITableVie
         toolsView?.addSubview(countLabel!)
         
         // Popup tools view instantiation
-        let popupToolsRect = CGRect(x: self.view.frame.size.width - 200, y: (mapView?.frame.size.height)!, width: 200, height: 130)
+        let popupToolsRect = CGRect(x: self.view.frame.size.width - 200, y: (mapView?.frame.size.height)!, width: 200, height: 170)
         popupToolsView = UIView(frame: popupToolsRect)
         popupToolsView!.backgroundColor = UIColor(red: 0.98, green: 0.98, blue: 0.98, alpha: 0.875)
         self.view.addSubview(popupToolsView!)
@@ -125,6 +138,18 @@ class BluetoothViewController: UIViewController, UITableViewDelegate, UITableVie
         exportDataButton.addTarget(self, action: #selector(exportData(_:)), for: .touchUpInside)
         popupToolsView?.addSubview(exportDataButton)
         
+        // Popup tools view: Auto-mark label
+        let autoMarkLabel = UILabel(frame: CGRect(x: 10, y: 130, width: 120, height: 30))
+        autoMarkLabel.text = "Auto-Mark"
+        autoMarkLabel.font = autoMarkLabel.font.withSize(24)
+        autoMarkLabel.textAlignment = .center
+        popupToolsView?.addSubview(autoMarkLabel)
+        
+        // Popup tools view: Auto-mark switch
+        autoMarkSwitch = UISwitch(frame: CGRect(x: 140, y: 130, width: 40, height: 30))
+        autoMarkSwitch!.addTarget(self, action: #selector(disableMarkButton(_:)), for: .touchUpInside)
+        popupToolsView?.addSubview(autoMarkSwitch!)
+        
         // Bluetooth device table view setup
         tableView = UITableView(frame: CGRect(x: 0, y: (mapView?.frame.size.height)!, width: self.view.frame.size.width, height: 250))
         tableView!.register(UITableViewCell.self, forCellReuseIdentifier: "tableCell")
@@ -139,7 +164,7 @@ class BluetoothViewController: UIViewController, UITableViewDelegate, UITableVie
 // Tool button functions
 extension BluetoothViewController {
     
-    @objc func setCountRate(_ sender: UIButton) {
+    @objc func markCountRate(_ sender: AnyObject?) {
         if (countLabel == nil) {
             print("No count rate")
         }
@@ -174,7 +199,7 @@ extension BluetoothViewController {
         
         if (popupToolsHidden) { // Move it up 130 pixels
             UIView.animate(withDuration: 0.2, delay: 0, options: [], animations: {
-                self.popupToolsView!.frame = CGRect(x: self.view.frame.size.width - 200, y: (self.mapView?.frame.size.height)! - 130, width: 200, height: 170)
+                self.popupToolsView!.frame = CGRect(x: self.view.frame.size.width - 200, y: (self.mapView?.frame.size.height)! - 170, width: 200, height: 170)
             })
         }
         else { // Return to hidden behind keyboard
@@ -247,6 +272,17 @@ extension BluetoothViewController {
             print("There is no data to export")
         }
         
+    }
+    
+    // Disable mark button when auto-marking
+    @objc func disableMarkButton(_ sender: UISwitch) {
+        if (autoMarkSwitch!.isOn) {
+            markButton!.isHidden = true
+            disabledMarkLabel!.isHidden = false
+        } else {
+            markButton!.isHidden = false
+            disabledMarkLabel!.isHidden = true
+        }
     }
 }
 
@@ -354,6 +390,9 @@ extension BluetoothViewController {
             
             countLabel!.text = countRate
             
+            if (autoMarkSwitch!.isOn) {
+                markCountRate(nil) //nil means it is called without button
+            }
         }
         
     }
