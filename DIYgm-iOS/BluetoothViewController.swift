@@ -310,6 +310,10 @@ extension BluetoothViewController {
         cell.layoutMargins = UIEdgeInsets.zero
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Nearby Raspberry Pis:"
+    }
 }
 
 // Bluetooth functions
