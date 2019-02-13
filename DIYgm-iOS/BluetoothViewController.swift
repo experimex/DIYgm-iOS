@@ -21,6 +21,8 @@ class BluetoothViewController: UIViewController, UITableViewDelegate, UITableVie
     var disabledMarkLabel: UILabel?
     var popupToolsView: UIView?
     var countLabel: UILabel?
+    var markerCountLabel: UILabel?
+    var peripheralNameLabel: UILabel?
     var autoMarkSwitch: UISwitch?
     var centralManager: CBCentralManager?
     var diygm: CBPeripheral?
@@ -46,13 +48,13 @@ class BluetoothViewController: UIViewController, UITableViewDelegate, UITableVie
         // Navigation controller instantiation
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 0.976, green: 0.976, blue: 0.976, alpha: 1.0)
         self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationItem.title = "Bluetooth Connection"
+        self.navigationItem.title = "Bluetooth Mapping"
         let refreshButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refresh(_:)))
         self.navigationItem.rightBarButtonItem = refreshButton
         
         // Map view instantiation
         let camera = GMSCameraPosition.camera(withLatitude: 42.276347, longitude: -83.736247, zoom: 2.0)
-        mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height - 200 - (navigationController?.navigationBar.frame.size.height)! - UIApplication.shared.statusBarFrame.height - 50), camera: camera)
+        mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height - 250 - (navigationController?.navigationBar.frame.size.height)! - UIApplication.shared.statusBarFrame.height), camera: camera)
         mapView?.isMyLocationEnabled = true
         mapView?.settings.myLocationButton = true
         mapView?.settings.compassButton = true
@@ -72,6 +74,7 @@ class BluetoothViewController: UIViewController, UITableViewDelegate, UITableVie
         markButton!.titleLabel?.font = markButton!.titleLabel?.font.withSize(26)
         markButton!.titleLabel?.textAlignment = .center
         markButton!.addTarget(self, action: #selector(markCountRate(_:)), for: .touchUpInside)
+        markButton!.isHidden = true
         toolsView?.addSubview(markButton!)
         
         // Tools view: Label for disabled mark button
@@ -79,7 +82,6 @@ class BluetoothViewController: UIViewController, UITableViewDelegate, UITableVie
         disabledMarkLabel!.text = "Auto-Marking"
         disabledMarkLabel!.textAlignment = .center
         disabledMarkLabel!.font = disabledMarkLabel!.font?.withSize(18)
-        disabledMarkLabel!.isHidden = true
         toolsView?.addSubview(disabledMarkLabel!)
         
         // Tools view: Button to show popup tools
@@ -91,7 +93,7 @@ class BluetoothViewController: UIViewController, UITableViewDelegate, UITableVie
         showPopupButton.addTarget(self, action: #selector(showPopupTools(_:)), for: .touchUpInside)
         toolsView?.addSubview(showPopupButton)
         
-        // Tools view: "Count Rate:" label
+        // Tools view: "Count Rate:" text label
         let textLabel = UILabel(frame: CGRect(x: 0, y: 65, width: self.view.frame.size.width, height: 30))
         textLabel.center.x = self.view.center.x
         textLabel.text = "Count Rate:"
@@ -106,6 +108,19 @@ class BluetoothViewController: UIViewController, UITableViewDelegate, UITableVie
         countLabel!.textAlignment = .center
         countLabel!.font = countLabel!.font?.withSize(100)
         toolsView?.addSubview(countLabel!)
+        
+        // Tools view: Marker count label
+        markerCountLabel = UILabel(frame: CGRect(x: 10, y: 210, width: self.view.frame.size.width / 2 - 10, height: 40))
+        markerCountLabel!.text = "Markers: 0"
+        markerCountLabel!.font = markerCountLabel!.font?.withSize(20)
+        toolsView?.addSubview(markerCountLabel!)
+        
+        // Tools view: Peripheral name label
+        peripheralNameLabel = UILabel(frame: CGRect(x: self.view.frame.size.width / 2, y: 210, width: self.view.frame.size.width / 2 - 10, height: 40))
+        peripheralNameLabel?.textAlignment = .right
+        peripheralNameLabel!.text = "Markers: 0"
+        peripheralNameLabel!.font = peripheralNameLabel!.font?.withSize(20)
+        toolsView?.addSubview(peripheralNameLabel!)
         
         // Popup tools view instantiation
         let popupToolsRect = CGRect(x: self.view.frame.size.width - 200, y: (mapView?.frame.size.height)!, width: 200, height: 170)
@@ -147,7 +162,8 @@ class BluetoothViewController: UIViewController, UITableViewDelegate, UITableVie
         
         // Popup tools view: Auto-mark switch
         autoMarkSwitch = UISwitch(frame: CGRect(x: 140, y: 130, width: 40, height: 30))
-        autoMarkSwitch!.addTarget(self, action: #selector(disableMarkButton(_:)), for: .touchUpInside)
+        autoMarkSwitch!.addTarget(self, action: #selector(enableMarkButton(_:)), for: .touchUpInside)
+        autoMarkSwitch!.setOn(true, animated: false)
         popupToolsView?.addSubview(autoMarkSwitch!)
         
         // Bluetooth device table view setup
@@ -164,6 +180,10 @@ class BluetoothViewController: UIViewController, UITableViewDelegate, UITableVie
 // Tool button functions
 extension BluetoothViewController {
     
+    func refreshMarkerCount() {
+        markerCountLabel!.text = "Markers: \(markerCount)"
+    }
+    
     @objc func markCountRate(_ sender: AnyObject?) {
         if (countLabel == nil) {
             print("No count rate")
@@ -179,18 +199,14 @@ extension BluetoothViewController {
             marker.snippet = countLabel!.text
             
             // Marker's color saturation is based on count rate
-            let highValue: CGFloat = 100.0
+            let highValue: CGFloat = 1500.0
             let sat = CGFloat(Int(countLabel!.text!)!) / highValue
             marker.icon = GMSMarker.markerImage(with: UIColor(hue: 0.0, saturation: sat, brightness: 1.0, alpha: 1.0))
             
             marker.map = mapView
             markers.append(marker)
             markerCount += 1
-            
-            // Go to marker
-            mapView!.animate(toLocation: currentLocation)
-            
-            print ("Recorded \(String(describing: marker.snippet)) at \(String(describing: marker.title))")
+            refreshMarkerCount()
         }
     }
     
@@ -216,6 +232,7 @@ extension BluetoothViewController {
             markers.removeLast()
             print("Marker\(markerCount) removed")
             markerCount -= 1
+            refreshMarkerCount()
         }
         else {
             print("No markers to remove")
@@ -223,10 +240,11 @@ extension BluetoothViewController {
     }
     
     @objc func removeAllMarkers(_ sender: UIButton) {
-        if (markers.count > 0) {
+        if (markerCount > 0) {
             mapView!.clear()
             markers = []
             markerCount = 0
+            refreshMarkerCount()
             print("Removed all markers")
         }
         else {
@@ -240,7 +258,7 @@ extension BluetoothViewController {
         
         var csvText = "Latitude,Longitude,Count Rate\n"
         
-        if markers.count > 0 {
+        if markerCount > 0 {
             
             for marker in markers {
                 let newLine = "\(marker.position.latitude),\(marker.position.longitude),\(marker.snippet!)\n"
@@ -275,7 +293,7 @@ extension BluetoothViewController {
     }
     
     // Disable mark button when auto-marking
-    @objc func disableMarkButton(_ sender: UISwitch) {
+    @objc func enableMarkButton(_ sender: UISwitch) {
         if (autoMarkSwitch!.isOn) {
             markButton!.isHidden = true
             disabledMarkLabel!.isHidden = false
@@ -364,8 +382,8 @@ extension BluetoothViewController {
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         print("Connected!")
         
+        peripheralNameLabel!.text = peripheral.name
         diygm!.discoverServices(nil)
-        
         
     }
     
