@@ -29,7 +29,7 @@
         <!--Home View Controller-->
         <scene sceneID="ZdU-Vb-v8o">
             <objects>
-                <viewController id="LGS-0I-2lp" customClass="HomeViewController" customModule="DIYgm_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="homeViewController" id="LGS-0I-2lp" customClass="HomeViewController" customModule="DIYgm_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="je6-Bj-87q">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

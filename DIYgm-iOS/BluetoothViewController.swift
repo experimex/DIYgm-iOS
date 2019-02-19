@@ -29,8 +29,8 @@ class BluetoothViewController: UIViewController, UITableViewDelegate, UITableVie
     
     // Bluetooth
     var peripherals: [CBPeripheral] = []
-    var names: [String] = []
-    var RSSIs: [NSNumber] = []
+    var peripheralNames: [String] = []
+    var diygmName: String?
     let serviceCBUUID = CBUUID(string: "ec00")
     let characteristicCBUUID = CBUUID(string: "ec00")
     
@@ -48,9 +48,11 @@ class BluetoothViewController: UIViewController, UITableViewDelegate, UITableVie
         // Navigation controller instantiation
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 0.976, green: 0.976, blue: 0.976, alpha: 1.0)
         self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationItem.title = "Bluetooth Mapping"
+        self.navigationItem.title = "DIYgm"
         let refreshButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refresh(_:)))
         self.navigationItem.rightBarButtonItem = refreshButton
+        let backButton = UIBarButtonItem(title: "< Back", style: .plain, target: self, action: #selector(disconnect(_:)))
+        self.navigationItem.leftBarButtonItem = backButton
         
         // Map view instantiation
         let camera = GMSCameraPosition.camera(withLatitude: 42.276347, longitude: -83.736247, zoom: 2.0)
@@ -308,21 +310,20 @@ extension BluetoothViewController {
 extension BluetoothViewController {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Selected \(names[indexPath.row])")
+        print("Selected \(peripheralNames[indexPath.row])")
         diygm = peripherals[indexPath.row]
         diygm!.delegate = self
+        diygmName = peripheralNames[indexPath.row]
         centralManager!.connect(diygm!)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return names.count
+        return peripheralNames.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tableCell", for: indexPath as IndexPath)
-        cell.textLabel!.text = "\(names[indexPath.row])\n\(RSSIs[indexPath.row])"
-        cell.textLabel!.font = cell.textLabel!.font.withSize(19)
-        cell.textLabel!.numberOfLines = 2
+        cell.textLabel!.text = "\(peripheralNames[indexPath.row])"
         cell.preservesSuperviewLayoutMargins = false
         cell.separatorInset = UIEdgeInsets.zero
         cell.layoutMargins = UIEdgeInsets.zero
@@ -364,17 +365,10 @@ extension BluetoothViewController {
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         
         peripherals.append(peripheral)
-        if let name = peripheral.name {
-            names.append(name)
-            print("Name: \(name)")
-        } else {
-            names.append(peripheral.identifier.uuidString)
+    
+        if let name = advertisementData["kCBAdvDataLocalName"] {
+            peripheralNames.append(name as! String)
         }
-        RSSIs.append(RSSI)
-        
-        print("UUID: \(peripheral.identifier.uuidString)")
-        print("Ad Data: \(advertisementData)")
-        print("------------------")
         
         tableView!.reloadData()
     }
@@ -382,9 +376,12 @@ extension BluetoothViewController {
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         print("Connected!")
         
-        peripheralNameLabel!.text = peripheral.name
+        peripheralNameLabel!.text = diygmName
         diygm!.discoverServices(nil)
         
+        //Change back button to disconnect
+        let backButton = UIBarButtonItem(title: "< Disconnect", style: .plain, target: self, action: #selector(disconnect(_:)))
+        self.navigationItem.leftBarButtonItem = backButton
     }
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
@@ -419,10 +416,29 @@ extension BluetoothViewController {
         
     }
     
+    @objc func disconnect(_ sender: UIButton) {
+        if (diygm != nil) {
+            let alertVC = UIAlertController(title: "Are you sure you want to disconnect?", message: "Make sure to export your data if you want to keep it.", preferredStyle: .alert)
+            
+            alertVC.addAction(UIAlertAction(title: "Disconnect", style: UIAlertAction.Style.default, handler: { action in
+                
+                self.centralManager!.cancelPeripheralConnection(self.diygm!)
+                _ = self.navigationController?.popViewController(animated: true)
+                
+            }))
+            
+            alertVC.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
+            
+            present(alertVC, animated: true, completion: nil)
+        } else {
+            _ = navigationController?.popViewController(animated: true)
+        }
+        
+    }
+    
     @objc func refresh(_ sender: UIButton) {
         print("Refresh")
-        names = []
-        RSSIs = []
+        peripheralNames = []
         tableView!.reloadData()
         centralManager!.stopScan()
         centralManager!.scanForPeripherals(withServices: [serviceCBUUID], options: nil)
