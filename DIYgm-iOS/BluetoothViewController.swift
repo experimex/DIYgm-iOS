@@ -76,7 +76,7 @@ class BluetoothViewController: UIViewController, UITableViewDelegate, UITableVie
         markButton!.titleLabel?.font = markButton!.titleLabel?.font.withSize(26)
         markButton!.titleLabel?.textAlignment = .center
         markButton!.addTarget(self, action: #selector(markCountRate(_:)), for: .touchUpInside)
-        markButton!.isHidden = true
+        markButton!.isHidden = false
         toolsView?.addSubview(markButton!)
         
         // Tools view: Label for disabled mark button
@@ -84,6 +84,7 @@ class BluetoothViewController: UIViewController, UITableViewDelegate, UITableVie
         disabledMarkLabel!.text = "Auto-Marking"
         disabledMarkLabel!.textAlignment = .center
         disabledMarkLabel!.font = disabledMarkLabel!.font?.withSize(18)
+        disabledMarkLabel!.isHidden = true
         toolsView?.addSubview(disabledMarkLabel!)
         
         // Tools view: Button to show popup tools
@@ -165,7 +166,7 @@ class BluetoothViewController: UIViewController, UITableViewDelegate, UITableVie
         // Popup tools view: Auto-mark switch
         autoMarkSwitch = UISwitch(frame: CGRect(x: 140, y: 130, width: 40, height: 30))
         autoMarkSwitch!.addTarget(self, action: #selector(enableMarkButton(_:)), for: .touchUpInside)
-        autoMarkSwitch!.setOn(true, animated: false)
+        autoMarkSwitch!.setOn(false, animated: false)
         popupToolsView?.addSubview(autoMarkSwitch!)
         
         // Bluetooth device table view setup
@@ -175,6 +176,7 @@ class BluetoothViewController: UIViewController, UITableViewDelegate, UITableVie
         tableView!.delegate = self
         self.view!.addSubview(tableView!)
         self.view!.bringSubviewToFront(tableView!)
+        
     }
 
 }
@@ -187,10 +189,7 @@ extension BluetoothViewController {
     }
     
     @objc func markCountRate(_ sender: AnyObject?) {
-        if (countLabel == nil) {
-            print("No count rate")
-        }
-        else if (mapView?.myLocation) == nil {
+        if (mapView?.myLocation) == nil {
             print("Location unknown")
         }
         else {
@@ -232,26 +231,26 @@ extension BluetoothViewController {
         if (markerCount > 0) {
             markers[markerCount - 1].map = nil
             markers.removeLast()
-            print("Marker\(markerCount) removed")
             markerCount -= 1
             refreshMarkerCount()
-        }
-        else {
-            print("No markers to remove")
         }
     }
     
     @objc func removeAllMarkers(_ sender: UIButton) {
-        if (markerCount > 0) {
-            mapView!.clear()
-            markers = []
-            markerCount = 0
-            refreshMarkerCount()
-            print("Removed all markers")
-        }
-        else {
-            print("No markers to remove")
-        }
+        let alertVC = UIAlertController(title: "Are you sure you want to remove all markers?", message: nil, preferredStyle: .alert)
+        
+        alertVC.addAction(UIAlertAction(title: "Remove All", style: UIAlertAction.Style.default, handler: { action in
+            
+            self.mapView!.clear()
+            self.markers = []
+            self.markerCount = 0
+            self.refreshMarkerCount()
+            
+        }))
+        
+        alertVC.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
+        
+        present(alertVC, animated: true, completion: nil)
     }
     
     @objc func exportData(_ sender: UIButton) {
@@ -284,12 +283,15 @@ extension BluetoothViewController {
                 present(vc, animated: true, completion: nil)
                 
             } catch {
-                print("Failed to create file")
                 print("\(error)")
             }
             
         } else {
-            print("There is no data to export")
+            let alertVC = UIAlertController(title: "There is no data to export.", message: nil, preferredStyle: .alert)
+            
+            alertVC.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil))
+            
+            present(alertVC, animated: true, completion: nil)
         }
         
     }
@@ -310,7 +312,6 @@ extension BluetoothViewController {
 extension BluetoothViewController {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Selected \(peripheralNames[indexPath.row])")
         diygm = peripherals[indexPath.row]
         diygm!.delegate = self
         diygmName = peripheralNames[indexPath.row]
@@ -374,7 +375,6 @@ extension BluetoothViewController {
     }
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
-        print("Connected!")
         
         peripheralNameLabel!.text = diygmName
         diygm!.discoverServices(nil)
@@ -382,6 +382,8 @@ extension BluetoothViewController {
         //Change back button to disconnect
         let backButton = UIBarButtonItem(title: "< Disconnect", style: .plain, target: self, action: #selector(disconnect(_:)))
         self.navigationItem.leftBarButtonItem = backButton
+        
+        self.navigationItem.rightBarButtonItem = nil
     }
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
@@ -390,7 +392,6 @@ extension BluetoothViewController {
         tableView?.isHidden = true
         
         for service in services {
-            print(service)
             diygm!.discoverCharacteristics(nil, for: service)
         }
     }
@@ -437,7 +438,6 @@ extension BluetoothViewController {
     }
     
     @objc func refresh(_ sender: UIButton) {
-        print("Refresh")
         peripheralNames = []
         tableView!.reloadData()
         centralManager!.stopScan()
