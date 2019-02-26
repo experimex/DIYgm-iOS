@@ -17,8 +17,8 @@
 		4B22A0DD220B6FC40084C1A3 /* BluetoothViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B22A0D5220B6FC30084C1A3 /* BluetoothViewController.swift */; };
 		4B22A0DE220B6FC40084C1A3 /* ManualViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B22A0D6220B6FC30084C1A3 /* ManualViewController.swift */; };
 		4B22A0E0220B6FC40084C1A3 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4B22A0D8220B6FC40084C1A3 /* Keys.plist */; };
-		4B455CD7220CD6FE001041A2 /* Pods_DIYgm_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 840570306CF649F9E5CEC32F /* Pods_DIYgm_iOS.framework */; };
 		4B455CD8220CD6FE001041A2 /* Pods_DIYgm_iOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 840570306CF649F9E5CEC32F /* Pods_DIYgm_iOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4B56143F2225EE9800E39F1E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B56143E2225EE9800E39F1E /* Assets.xcassets */; };
 		C13EC5FA47D86898EC1425A3 /* Pods_DIYgm_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 840570306CF649F9E5CEC32F /* Pods_DIYgm_iOS.framework */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +70,7 @@
 		4B22A0D5220B6FC30084C1A3 /* BluetoothViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothViewController.swift; sourceTree = "<group>"; };
 		4B22A0D6220B6FC30084C1A3 /* ManualViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManualViewController.swift; sourceTree = "<group>"; };
 		4B22A0D8220B6FC40084C1A3 /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
+		4B56143E2225EE9800E39F1E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		53859232522914DDB6B7278F /* Pods-DIYgm-iOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DIYgm-iOSUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DIYgm-iOSUITests/Pods-DIYgm-iOSUITests.release.xcconfig"; sourceTree = "<group>"; };
 		7D3038D8964CFC1CB1C94F19 /* Pods-DIYgm-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DIYgm-iOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DIYgm-iOSTests/Pods-DIYgm-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		840570306CF649F9E5CEC32F /* Pods_DIYgm_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DIYgm_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -85,7 +86,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C13EC5FA47D86898EC1425A3 /* Pods_DIYgm_iOS.framework in Frameworks */,
-				4B455CD7220CD6FE001041A2 /* Pods_DIYgm_iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,6 +151,7 @@
 				4B22A0D6220B6FC30084C1A3 /* ManualViewController.swift */,
 				4B22A0D5220B6FC30084C1A3 /* BluetoothViewController.swift */,
 				4B22A0A8220B6F410084C1A3 /* Main.storyboard */,
+				4B56143E2225EE9800E39F1E /* Assets.xcassets */,
 				4B22A0B0220B6F430084C1A3 /* Info.plist */,
 				4B22A0D8220B6FC40084C1A3 /* Keys.plist */,
 			);
@@ -295,6 +296,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B22A0AA220B6F410084C1A3 /* Main.storyboard in Resources */,
+				4B56143F2225EE9800E39F1E /* Assets.xcassets in Resources */,
 				4B22A0E0220B6FC40084C1A3 /* Keys.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -585,7 +587,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = D2273Z43T2;
 				INFOPLIST_FILE = "DIYgm-iOS/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -605,7 +607,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = D2273Z43T2;
 				INFOPLIST_FILE = "DIYgm-iOS/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

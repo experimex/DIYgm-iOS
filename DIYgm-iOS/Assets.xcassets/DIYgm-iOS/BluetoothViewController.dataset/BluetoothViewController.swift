@@ -200,7 +200,7 @@ extension BluetoothViewController {
             marker.snippet = countLabel!.text
             
             // Marker's color saturation is based on count rate
-            let highValue: CGFloat = 2500.0
+            let highValue: CGFloat = 1500.0
             let sat = CGFloat(Int(countLabel!.text!)!) / highValue
             marker.icon = GMSMarker.markerImage(with: UIColor(hue: 0.0, saturation: sat, brightness: 1.0, alpha: 1.0))
             
