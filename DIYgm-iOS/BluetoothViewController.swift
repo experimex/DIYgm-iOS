@@ -408,6 +408,7 @@ extension BluetoothViewController {
         
         if let countRate = String(data: characteristic.value!, encoding: String.Encoding.utf8) {
             
+            print(countRate)
             countLabel!.text = countRate
             
             if (autoMarkSwitch!.isOn) {

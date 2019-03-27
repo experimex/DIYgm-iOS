@@ -1,6 +1,6 @@
+var bleno = require('bleno');
 var util = require('util');
 var fs = require('fs');
-var bleno = require('bleno');
 
 var BlenoCharacteristic = bleno.Characteristic;
 
@@ -40,7 +40,7 @@ EchoCharacteristic.prototype.onWriteRequest = function(data, offset, withoutResp
 };
 
 EchoCharacteristic.prototype.onSubscribe = function(maxValueSize, updateValueCallback) {
-  console.log("CONNECTED to iPhone");
+  console.log("iOS server - CONNECTED to iPhone");
 
   fs.writeFileSync("transfer.txt");
   
@@ -58,7 +58,7 @@ EchoCharacteristic.prototype.onSubscribe = function(maxValueSize, updateValueCal
 EchoCharacteristic.prototype.onUnsubscribe = function() {
   clearInterval(scanFileTimer)
   fs.unlinkSync("transfer.txt")
-  console.log("DISCONNECTED - Select \"" + require('./main.js').name + "\" to reconnect.");
+  console.log("iOS server - DISCONNECTED from iPhone");
 
   this._updateValueCallback = null;
 };
