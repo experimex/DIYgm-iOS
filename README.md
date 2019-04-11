@@ -5,6 +5,4 @@ APIs: Create a Keys.plist in the DIYgm-iOS folder. Add an entry with the key bei
 
 Color Scale: The saturation of each marker is based on how high its measured count rate is, compared to a specified high value. This high value was set to 100, meaning a value of 0 is the least saturated and a value of 100 and above is the most saturated. To change the high value, modify the value of the highValue variable in setCountRate().
 
-The RPi folder contains the files used on the Raspberry Pi to allow this app to work. Run both of these files in order to connect to the Pi and receive count rate data from it.
-- GeigerAuto_iOS.py (Python 3) gets the count rate from the radiation detector and prepares it for transfer. 
-- main.js (node.js) simulates a peripheral on the Raspberry Pi to transfer the count rate data to this app.
+The RPi folder contains the files used on the Raspberry Pi to allow this app to work. Documentation on how to use these files is being written.
