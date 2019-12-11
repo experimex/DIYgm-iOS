@@ -1,0 +1,72 @@
+DIYgm Software Documentation
+Max Li
+
+PREPARATION
+
+Plug in the ports on the Raspberry Pi to turn it on and connect it to a monitor, mouse, and keyboard.
+
+Make sure you are connected to the Internet. Use the Wifi symbol on the top right of the screen to do this.
+
+Raspberry Pi Software for Bluetooth connection to Android
+● Open a Terminal by clicking the “>_” symbol on the top toolbar.
+● First we need to install pybluez, which will let the Pi connect to the Android app via Bluetooth. Type “sudo python3 -m pip install pybluez” into the Terminal and press Enter. Press the Y key when prompted in order to install.
+● We now need to edit the newly installed software to make it compatible with the Pi. After installation, type “sudo nano /etc/systemd/system/dbus-org.bluez.service” and hit Enter. You should now be editing a text file.
+● Use the arrow keys to go to the line "ExecStart=/usr/lib/bluetooth/bluetoothd". Go to the end of the line and add "--compat" to the end. It should now say "ExecStart=/usr/lib/bluetooth/bluetoothd --compat". Then, press Ctrl+X, Y, and enter. This should end the editing.
+● Finally, we need to reload some parts of the Pi:
+  ○ Type "systemctl daemon-reload" and press Enter.
+  ○ Type "systemctl restart bluetooth" and press Enter.
+  ○ Type "sudo chmod 755 /var/run/sdp" and press Enter.
+
+Raspberry Pi Software for Bluetooth connection to iOS
+● Get the DIYgm-iOS files from a flash drive. Plug in the flash drive and click “OK” when it asks you to Open in File Manager. Select all of the files in the flash drive (Ctrl+A or click and drag the mouse across all the files) and copy them using Ctrl+C. Open the File Manager using the folder icon on the top toolbar, and it will take you to the home folder. Paste the files using Ctrl+V.
+● We need to install node.js, which will let the Pi connect to the iOS app via Bluetooth. To do this, right click on the “node-v4.3.1-linux-armv6l.tar.gz” file in the home folder and click “Extract Here.” After the extraction, open a Terminal by clicking the “>_” symbol on the top toolbar. Type “sudo service bluetooth stop” to turn off the Pi’s Bluetooth for now.
+● Node.js has already been downloaded as one of the DIYgm-iOS files, so we now just have to move it to a system folder. Type “cd node-v4.3.1-linux-armv6l” and press Enter (Tip: press Tab to autocomplete the filename). Type "sudo cp -R * /usr/local" and press Enter.
+● Restart the Pi’s Bluetooth by typing “sudo service bluetooth start” and pressing Enter.
+
+Installing Mobile Applications
+● Install DIYgm from the App Store on iOS or the Play Store on Android.
+
+Naming the Raspberry Pi
+● Change the name of your Raspberry Pi so you can recognize it in the mobile app. Click on the folder icon in the top toolbar to open the File Manager. Double click on the name.txt file. This should open a text editor. Replace “TestName” with your preferred name for the Pi.
+
+Getting it to Run the Files Automatically on Startup
+● Open a Terminal by clicking the “>_” symbol on the top toolbar.
+● Type “sudo nano .bashrc”. You should now be editing a text file.
+● Press down to go to the bottom of the text file. Type “./startup.sh &” at the end of the file. Then, press Ctrl+X, Y, and Enter. This should end the editing.
+● Type “sudo chmod 755 startup.sh” and press Enter.
+● Type “sudo chmod 755 discoverable.sh” and press Enter.
+
+USING THE SOFTWARE
+
+Preparing the Raspberry Pi
+● Plug in the Micro USB power cable into the Raspberry Pi to turn it on. Within one minute, the Android and iOS DIYgm apps will be able to find the Pi and connect to it. No monitor, keyboard, and mouse are necessary.
+
+Android App
+● Select “Bluetooth Mapping.”
+● If Bluetooth is not turned on, use the “BT ON/OFF” button to turn it on.
+● Tap “DISCOVERABLE ON/OFF” to make your Android device discoverable.
+● Tap “DISCOVER DEVICES” to search for your Raspberry Pi.
+● Tap on the name of your Raspberry Pi when it shows up. Tap “START CONNECTION” and then “BEGIN MAPPING.”
+● If the count rate reads 0 or is blank, restart the app and try again.
+● To mark a count rate on the map at your current location, click “MARK.”
+● To enable timed marks, click “ENABLE TIMED MARK”, enter “1” in the Time Interval box, and press “SET TIME (SECONDS).”
+● To delete all markers placed, tap “CLEAR ALL MARKERS.”
+● To visualize the markers in a heatmap, tap “HEAT MAP.” Tap this button again to turn the heatmap off.
+● To export the marked data, press “EXPORT DATA” and choose to export it via Email or Text File.
+● To disconnect, close the app COMPLETELY. To do this, press the square button on the bottom (multitasking button on Android), and fully stop the app.
+
+iOS App
+● Select “Bluetooth Mapping.”
+● Raspberry Pis that are ready for connection should show up on the bottom half of the screen. Click on the name of your Raspberry Pi to connect to it and start detecting. Use the Refresh button on the top right of the screen to search again for connectable Pis.
+● If the count rate reads 0 or is blank, disconnect and try again.
+● Zoom in on your current location by pressing the circular location button on the bottom right of the map.
+● Use 1 finger to move around the map. Use 2 fingers to zoom in and out of the map.
+● Tap “Mark” to mark a count rate on the map at your current location. The color of the marker corresponds to the intensity of the radiation.
+● Tap “Tools” to access other options. These options include:
+  ○ “Undo Marker” - Delete the last marker that you placed on the map.
+  ○ “Remove All” - Delete all markers that you have placed.
+  ○ “Export Data” - Export the count rate data you have marked. Choose the method of export that you prefer.
+  ○ “Auto Mark” - Toggle on/off to enable/disable auto marking every 1 second.
+● Tap “Tools” again to hide the extra options.
+● To disconnect, tap “Disconnect” on the top left.
+● On the bottom of the screen, it displays the amount of markers placed and the name of your Raspberry Pi.
