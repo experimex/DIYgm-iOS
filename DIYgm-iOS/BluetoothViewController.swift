@@ -31,8 +31,8 @@ class BluetoothViewController: UIViewController, UITableViewDelegate, UITableVie
     var peripherals: [CBPeripheral] = []
     var peripheralNames: [String] = []
     var diygmName: String?
-    let serviceCBUUID = CBUUID(string: "e3754285-8072-458b-a45b-94a0dab368ef")
-    let characteristicCBUUID = CBUUID(string: "e3754285-8072-458b-a45b-94a0dab368ef")
+    let serviceCBUUID = CBUUID(string: "e3754285-8072-458b-a45b-94a0dab36800")
+    let characteristicCBUUID = CBUUID(string: "e3754285-8072-458b-a45b-94a0dab36801")
     
     // Marker data
     var markerCount: Int = 0
